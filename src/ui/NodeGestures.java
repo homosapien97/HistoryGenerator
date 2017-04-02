@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 
 /**
  * Listeners for making the nodes draggable via left mouse button. Considers if parent is zoomed.
+ * @author Jens-Peter Haack http://stackoverflow.com/users/4217556/jens-peter-haack
  */
 public class NodeGestures {
 

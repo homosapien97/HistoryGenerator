@@ -6,6 +6,8 @@ import javafx.scene.input.ScrollEvent;
 
 /**
  * Listeners for making the scene's canvas draggable and zoomable
+ *
+ * @author Jens-Peter Haack http://stackoverflow.com/users/4217556/jens-peter-haack
  */
 public class SceneGestures {
 

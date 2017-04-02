@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 /**
- * @author http://stackoverflow.com/questions/29506156/javafx-8-zooming-relative-to-mouse-pointer
+ * @author Jens-Peter Haack http://stackoverflow.com/users/4217556/jens-peter-haack
  */
 public class PannableCanvas extends Pane {
 
