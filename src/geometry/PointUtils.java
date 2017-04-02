@@ -17,7 +17,12 @@ public class PointUtils {
      * @return Orientation
      */
     public static double orientation(Point2D p, Point2D q, Point2D r) {
-        return (q.getY() - p.getY()) * (r.getX() - q.getX()) - (q.getX() - p.getX()) * (r.getY() - q.getY());
+//        return (q.getY() - p.getY()) * (r.getX() - q.getX()) - (q.getX() - p.getX()) * (r.getY() - q.getY());
+        return orientation(p.getX(), p.getY(), q.getX(), q.getY(), r.getX(), r.getY());
+    }
+
+    public static double orientation(double x1, double y1, double x2, double y2, double x3, double y3) {
+        return (y2 - y1) * (x3 - x2) - (x2 - x1) * (y3 - y2);
     }
 
     public static double squareDistance(Point2D a, Point2D b) {
@@ -37,5 +42,21 @@ public class PointUtils {
 
     public static boolean squareClose(Point2D a, Point2D b, double csquared) {
         return squareDistance(a, b) <= csquared;
+    }
+
+    public static boolean onSegment(double x1, double y1, double x2, double y2, double x3, double y3)  {
+        return x3 <= Math.max(x1, x2) && x3 >= Math.min(x1, x2) && y3 <= Math.max(y1, y2) && y3 >= Math.min(y1, y2);
+    }
+
+    public static boolean intersects(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
+        return  orientation(x1, y1, x2, y2, x3, y3) * orientation(x1, y1, x2, y2, x4, y4) < 0
+                ||
+                orientation(x1, y1, x2, y2, x3, y3) == 0 && onSegment(x1, y1, x2, y2, x3, y3)
+                ||
+                orientation(x1, y1, x2, y2, x4, y4) == 0 && onSegment(x1, y1, x2, y2, x4, y4)
+                ||
+                orientation(x3, y3, x4, y4, x1, y1) == 0 && onSegment(x3, y3, x4, y4, x1, y1)
+                ||
+                orientation(x3, y3, x4, y4, x2, y2) == 0 && onSegment(x3, y3, x4, y4, x2, y2);
     }
 }

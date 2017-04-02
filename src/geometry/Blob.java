@@ -84,4 +84,8 @@ public class Blob extends LinkedList<Point2D> {
         }
         return ret;
     }
+
+    private void removeSelfIntersections() {
+
+    }
 }
