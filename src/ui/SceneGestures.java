@@ -1,8 +1,11 @@
 package ui;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.transform.Affine;
 
 /**
  * Listeners for making the scene's canvas draggable and zoomable
@@ -11,8 +14,9 @@ import javafx.scene.input.ScrollEvent;
  */
 public class SceneGestures {
 
-    private static final double MAX_SCALE = 10.0d;
-    private static final double MIN_SCALE = .1d;
+    private static final double MAX_SCALE = 100.0d;
+    private static final double MIN_SCALE = .001d;
+
 
     private DragContext sceneDragContext = new DragContext();
 
@@ -73,31 +77,24 @@ public class SceneGestures {
 
         @Override
         public void handle(ScrollEvent event) {
-
-            double delta = 1.2;
-
             double scale = canvas.getScale(); // currently we only use Y, same value is used for X
             double oldScale = scale;
 
-            if (event.getDeltaY() < 0)
-                scale /= delta;
-            else
-                scale *= delta;
+            scale *= Math.pow(1.01, event.getDeltaY());
 
-            scale = clamp( scale, MIN_SCALE, MAX_SCALE);
+            if (scale <= MIN_SCALE) {
+                scale = MIN_SCALE;
+            } else if (scale >= MAX_SCALE) {
+                scale = MAX_SCALE;
+            }
 
             double f = (scale / oldScale)-1;
 
             double dx = (event.getSceneX() - (canvas.getBoundsInParent().getWidth()/2 + canvas.getBoundsInParent().getMinX()));
             double dy = (event.getSceneY() - (canvas.getBoundsInParent().getHeight()/2 + canvas.getBoundsInParent().getMinY()));
 
-            canvas.setScale( scale);
-
-            // note: pivot value must be untransformed, i. e. without scaling
             canvas.setPivot(f*dx, f*dy);
-
-            event.consume();
-
+            canvas.setScale(scale);
         }
 
     };

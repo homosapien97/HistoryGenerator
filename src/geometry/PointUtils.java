@@ -44,19 +44,29 @@ public class PointUtils {
         return squareDistance(a, b) <= csquared;
     }
 
-    public static boolean onSegment(double x1, double y1, double x2, double y2, double x3, double y3)  {
-        return x3 <= Math.max(x1, x2) && x3 >= Math.min(x1, x2) && y3 <= Math.max(y1, y2) && y3 >= Math.min(y1, y2);
+    public static boolean onSegmentStrict(double x1, double y1, double x2, double y2, double x3, double y3)  {
+        return x3 < Math.max(x1, x2) && x3 > Math.min(x1, x2) && y3 < Math.max(y1, y2) && y3 > Math.min(y1, y2);
     }
 
-    public static boolean intersects(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
-        return  orientation(x1, y1, x2, y2, x3, y3) * orientation(x1, y1, x2, y2, x4, y4) < 0
+    public static boolean crosses(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
+        return  (orientation(x1, y1, x2, y2, x3, y3) * orientation(x1, y1, x2, y2, x4, y4) < 0
+                &&
+                orientation(x3, y3, x4, y4, x1, y1) * orientation(x3, y3, x4, y4, x2, y2) < 0)
                 ||
-                orientation(x1, y1, x2, y2, x3, y3) == 0 && onSegment(x1, y1, x2, y2, x3, y3)
+                orientation(x1, y1, x2, y2, x3, y3) == 0 && onSegmentStrict(x1, y1, x2, y2, x3, y3)
                 ||
-                orientation(x1, y1, x2, y2, x4, y4) == 0 && onSegment(x1, y1, x2, y2, x4, y4)
+                orientation(x1, y1, x2, y2, x4, y4) == 0 && onSegmentStrict(x1, y1, x2, y2, x4, y4)
                 ||
-                orientation(x3, y3, x4, y4, x1, y1) == 0 && onSegment(x3, y3, x4, y4, x1, y1)
+                orientation(x3, y3, x4, y4, x1, y1) == 0 && onSegmentStrict(x3, y3, x4, y4, x1, y1)
                 ||
-                orientation(x3, y3, x4, y4, x2, y2) == 0 && onSegment(x3, y3, x4, y4, x2, y2);
+                orientation(x3, y3, x4, y4, x2, y2) == 0 && onSegmentStrict(x3, y3, x4, y4, x2, y2);
+    }
+
+    public static boolean crosses(Point2D a, Point2D b, Point2D c, Point2D d) {
+        return crosses(a.getX(), a.getY(), b.getX(), b.getY(), c.getX(), c.getY(), d.getX(), d.getY());
+    }
+
+    public static boolean crosses(LineSegment a, LineSegment b) {
+        return crosses(a.getA(), a.getB(), b.getA(), b.getB());
     }
 }

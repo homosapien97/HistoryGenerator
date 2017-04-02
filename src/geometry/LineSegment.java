@@ -16,6 +16,10 @@ public class LineSegment {
         this.length = a.distance(b);
     }
 
+    public LineSegment(double x1, double y1, double x2, double y2) {
+        this(new Point2D(x1, y1), new Point2D(x2, y2));
+    }
+
     public Point2D getA() {
         return a;
     }
@@ -200,44 +204,19 @@ public class LineSegment {
         return (b.getY() - a.getY()) * x + (a.getX() - b.getX()) * y + b.getX() * a.getY() - a.getX() * b.getY();
     }
 
-//    public BoxList thickRasterization(double scale) {
-//        BoxList ret = new BoxList(scale);
-//        double s = slope();
-//        if(Double.isNaN(s)) {
-//            //TODO
-//        } else {
-//            if(a.getX() > b.getX()) {
-//                int i = (int)Math.ceil((a.getX() - b.getX()) / scale);
-//                if(s == 0.0) {
-//                    ret.push(b);
-//                    if(ret.isVerticalSide(b)) {
-//                        ret.push(new IntPair(ret.peek().a - 1, ret.peek().b));
-//                        if(ret.isHorizontalSide(b)) {
-//                            ret.push(new IntPair(ret.peek().a + 1, ret.peek().b - 1));
-//                            ret.push(new IntPair(ret.peek().a - 1, ret.peek().b));
-//                            for(int j = 0; j < i; j++) {
-//                                ret.add(new IntPair(ret.getLast().a + 1, ret.getLast().b - 1));
-//                                ret.add(new IntPair(ret.getLast().a, ret.getLast().b + 1));
-//                            }
-//                        } else {
-//                            for(int j = 0; j < i; j++) {
-//                                ret.add(new IntPair(ret.getLast().a + 1, ret.getLast().b));
-//                            }
-//                        }
-//                    } else if(ret.isHorizontalSide(b)) {
-//                        for(int j = 0; j < i; j++) {
-//                            ret.add(new IntPair(ret.getLast().a + 1, ret.getLast().b - 1));
-//                            ret.add(new IntPair(ret.getLast().a, ret.getLast().b + 1));
-//                        }
-//                    }
-//                } else if (s < 0.0) {
-//                    //TODO
-//                } else if (s > 0.0) {
-//                    //TODO
-//                }
-//            } else {
-//                //TODO
-//            }
-//        }
-//    }
+    @Override
+    public int hashCode() {
+        int ah = a.hashCode();
+        return (ah << 16) + (ah >>> 16) + b.hashCode();
+    }
+    @Override
+    public boolean equals(Object o) {
+        if(o != null && o instanceof LineSegment) {
+            LineSegment l = (LineSegment) o;
+            return l.hashCode() == hashCode() && l.a.equals(a) && l.b.equals(b);
+        } else {
+            return false;
+        }
+
+    }
 }
