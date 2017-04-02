@@ -1,7 +1,6 @@
-import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
+package geometry;
 
-import java.util.ArrayList;
+import javafx.geometry.Point2D;
 
 /**
  * Created by homosapien97 on 3/11/17.
@@ -57,7 +56,7 @@ public class LineSegment {
 
     /**
      * Gets the point of intersection between the line represented by this segment and the line represented by l.
-     * In the case where the lines do not intersect, the result is PointUtils.NanPoint.
+     * In the case where the lines do not intersect, the result is geometry.PointUtils.NanPoint.
      * In the case where the lines have multiple points of intersection, a suitable endpoint of one of the sections is chosen.
      * @param l line to be intersected
      * @return intersection of this with l

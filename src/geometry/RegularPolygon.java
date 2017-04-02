@@ -1,3 +1,5 @@
+package geometry;
+
 import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ public class RegularPolygon extends ArrayList<Point2D> {
         super(vertices);
         exteriorAngle = Math.PI * 2.0 / vertices;
         this.add(start);
-        for(int i = 0; i < vertices; i++) {
+        for(int i = 0; i < vertices - 1; i++) {
             this.add(new Point2D(this.get(i).getX() + scale * Math.cos(exteriorAngle * i),
                     this.get(i).getY() + scale * Math.sin(exteriorAngle * i)));
         }
