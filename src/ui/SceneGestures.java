@@ -80,7 +80,7 @@ public class SceneGestures {
             double scale = canvas.getScale(); // currently we only use Y, same value is used for X
             double oldScale = scale;
 
-            scale *= Math.pow(1.01, event.getDeltaY());
+            scale *= Math.sqrt(Math.pow(1.01, event.getDeltaY()));
 
             if (scale <= MIN_SCALE) {
                 scale = MIN_SCALE;

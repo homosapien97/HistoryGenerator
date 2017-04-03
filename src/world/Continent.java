@@ -9,9 +9,9 @@ import java.util.Random;
  * Created by homosapien97 on 4/1/17.
  */
 public class Continent extends Polygon {
-    public Continent(double jaggedness, int deformations, Random rand) {
+    public Continent(int startPolygon, double scale, double jaggedness, int deformations, Random rand) {
         super();
-        this.getPoints().addAll((new Blob(jaggedness, deformations, rand)).getDoubleList());
+        this.getPoints().addAll((new Blob(startPolygon, scale, jaggedness, deformations, rand)).getDoubleList());
         System.out.println("Blob has been added to continent");
 //        double tx = this.getLayoutBounds().getMinX() + this.getLayoutBounds().getWidth() / 2;
 //        double ty = this.getLayoutBounds().getMinY() + this.getLayoutBounds().getHeight() / 2;

@@ -1,0 +1,75 @@
+TODO
+    *NOT DONE: Geometry
+        *NOT DONE: Write structure to work with
+            Done: Points
+                Done: Use JavaFX's Point2D class
+            Done: Line Segments
+                Done: Generate from endpoints
+                Done: Write useful functions to analyze segments
+                    Done: slope
+                    Done: length
+                    Done: square length
+                    Done: midpoint
+                    Done: intersection with another segment
+                    Done: orthogonal projection of point onto line
+                    Done: orthogonal distance from point to line
+                    Done: nearest point to segment
+                    Done: distance from point to segment
+                    Done: hashcode
+                    Done: equals
+            Done: Regular Polygons
+                Done: Generate from number of vertices and side length
+            Done: Irregular Polygons
+                Done: Generate from initial polygon, initial side length, jaggedness, and level of deformation
+                    Done: Loop through vertices repeatedly, inserting new ones randomly to deform the shape
+                        Done: Use code from previous attempt at this, but improve
+                        Done: Avoid self intersections by only inserting points when they wouldn't cause one
+            *NOT DONE: Random Voronoi Diagrams
+            *NOT DONE: Randomly-sampled Simplex Noise with Octaves
+        Done: Write functions to
+            Done: detect line segment intersections given only endpoint coordinates
+            Done: get clockwise-counterclockwise-collinear orientation of 3 points
+            Done: get square distance between points given only endpoint coordinates
+            Done: determine whether two points are "close" to eachother
+    *NOT DONE: UI
+        Done: Display Generated Continents
+        *NOT DONE: Create zoomable, pannable space in which to put things to display
+            Done: Find someone else's implementation because JavaFX is a nightmare
+                Done: Cite author in code, REMEMBER TO CITE LATER IN AUTHOR'S NOTE!
+            *NOT DONE: Fix zooming to work correctly at high zoom levels
+                Done: Determine the way it should work mathematically
+                *NOT DONE: Determine how to get the information I need from JavaFX's framework
+        *NOT DONE: Allow different render-modes to only render certain information
+            *NOT DONE: Allow different objects to be colored/translucent/transparent in different render-modes
+        *NOT DONE: Add intro-menu
+            *NOT DONE: Allow input-parameters for world generation from menu
+            *NOT DONE: Make menu pretty--might never get done
+        *NOT DONE: Account for & create HUD for world
+            *NOT DONE: Display more detailed contextual information on hover/click
+    *NOT DONE: World
+        *NOT DONE: Continent Generation
+            Done: Generate realistic-looking outline
+                Done: Use irregular polygon with high jaggedness and deformation values
+            *NOT DONE: Generate terrain features
+                *NOT DONE: Generate mountains
+                    *NOT DONE: Use Simplex noise to generate mountain ridge skeleton
+                    *NOT DONE: Generate simplified height map from mountain skeleton
+                *NOT DONE: Generate river systems
+                    *NOT DONE: Use random connections to neighboring cells in Voronoi Diagrams to generate rivers
+            *NOT DONE: Add islands to coast
+            *NOT DONE: Generate climate information
+                *NOT DONE: Generate realistic wind patterns
+                *NOT DONE: Map temperature and humidity for areas to winds and elevation changes
+            *NOT DONE: Generate flora-fauna info
+        *NOT DONE: People generation
+            *NOT DONE: Random population seeds
+            *NOT DONE: Random migration
+            *NOT DONE: Population growth
+            *NOT DONE: Population splitting
+            *NOT DONE: Settlements
+            *NOT DONE: Technology
+            *NOT DONE: Cultural divergence via natural barriers
+            *NOT DONE: Cultural convergence within states
+                *NOT DONE: States
+                    *NOT DONE: Conquest
+            *NOT DONE: Religion

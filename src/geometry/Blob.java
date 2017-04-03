@@ -10,17 +10,10 @@ import java.util.ListIterator;
 import java.util.Random;
 
 public class Blob extends LinkedList<Point2D> {
-    private static final int DEFAULT_DEFORMATIONS = 5;
-    private static final double DEFAULT_SCALE = 1024.0;
-    private static final RegularPolygon TRIANGLE = new RegularPolygon(new Point2D(0,0), 3, DEFAULT_SCALE);
     private Random rand;
 
-    public Blob(double jaggedness, Random rand) {
-        this(jaggedness, DEFAULT_DEFORMATIONS, rand);
-    }
-
-    public Blob(double jaggedness, int deformations, Random rand) {
-        super(TRIANGLE);
+    public Blob(int startPolygon, double scale, double jaggedness, int deformations, Random rand) {
+        super(new RegularPolygon(new Point2D(0,0), startPolygon, scale));
         System.out.println("Generating blob");
         this.rand = rand;
         Point2D a;
@@ -128,7 +121,6 @@ public class Blob extends LinkedList<Point2D> {
                 iter.previous();
             }
         }
-//        removeSelfIntersections();
     }
 
     private Point2D getMutation(Point2D a, Point2D b, double jaggedness) {
@@ -171,103 +163,4 @@ public class Blob extends LinkedList<Point2D> {
         }
         return ret;
     }
-
-//    private void removeSelfIntersections() {
-//        System.out.println("Removing self intersections");
-//        int count = 0;
-//        int i = 0;
-//        int j;
-//
-//        ListIterator<Point2D> jter = this.listIterator();
-//        HashSet<Intersection> intersections = new HashSet<>();
-//
-//        Point2D pi;
-//        Point2D qi;
-//        Point2D pj;
-//        Point2D qj;
-//        Point2D swap;
-//        for(ListIterator<Point2D> iter = this.listIterator(); iter.hasNext(); i++) {
-//            pi = iter.next();
-//            if(iter.hasNext()) {
-//                qi = iter.next();
-//                iter.previous();
-//                j = 0;
-//                jter = this.listIterator();
-//                for(; jter.hasNext() && j < i - 1; j++) {
-//                    pj = jter.next();
-//                    qj = jter.next();
-//                    jter.previous();
-//                    if(PointUtils.crosses(pi.getX(), pi.getY(), qi.getX(), qi.getY(), pj.getX(), pj.getY(), qj.getX(), qj.getY())) {
-//                        count++;
-//                        Intersection is = new Intersection(new LineSegment(pi, qi), new LineSegment(pj, qj));
-//                        if(intersections.contains(is)) {
-//                            //Probable repeat intersection. Remove qi.
-//                            iter.remove();
-//                            //remove is from the set of known intersections
-//                            intersections.remove(is);
-//                            //move iter back one
-//                            iter.previous();
-//                            //decrement i
-//                            i--;
-//                            //reset jiter & j
-//                            break;
-//                        } else {
-//                            intersections.add(is);
-//                            //swap pi & qj
-//                            swap = pi;
-//                            iter.previous();
-//                            iter.set(qj);
-//                            jter.set(swap);
-//                            //move jter back one
-//                            jter.previous();
-//                            //set iter = jter
-//                            iter = jter;
-//                            //set i = j
-//                            i = j;
-//                        }
-//                    }
-//                }
-//            } else {
-//                qi = this.getFirst();
-//                j = 1;
-//                jter = this.listIterator();
-//                jter.next();
-//                for(; jter.hasNext() && j < i - 1; j++) {
-//                    pj = jter.next();
-//                    qj = jter.next();
-//                    jter.previous();
-//                    if(PointUtils.crosses(pi.getX(), pi.getY(), qi.getX(), qi.getY(), pj.getX(), pj.getY(), qj.getX(), qj.getY())) {
-//                        count++;
-//                        Intersection is = new Intersection(new LineSegment(pi, qi), new LineSegment(pj, qj));
-//                        if(intersections.contains(is)) {
-//                            //Probable repeat intersection.
-//                            //move iter back one
-//                            iter.previous();
-//                            //Remove qi.
-//                            this.removeFirst();
-//                            //remove is from the set of known intersections
-//                            intersections.remove(is);
-//                            //decrement i
-//                            i--;
-//                            //reset jiter & j
-//                            break;
-//                        } else {
-//                            intersections.add(is);
-//                            //swap pi and qj
-//                            swap = pi;
-//                            iter.previous();
-//                            iter.set(qj);
-//                            jter.set(swap);
-//                            //move jter back one
-//                            jter.previous();
-//                            //set iter = jter
-//                            iter = jter;
-//                            //set i = j
-//                            i = j;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 }

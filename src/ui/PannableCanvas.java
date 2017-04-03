@@ -2,6 +2,7 @@ package ui;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -14,13 +15,16 @@ public class PannableCanvas extends Pane {
 
     DoubleProperty myScale = new SimpleDoubleProperty(1.0);
 
+    Bounds bounds;
+
     public PannableCanvas() {
 //        setPrefSize(600, 600);
-        setStyle("-fx-background-color: lightgrey; -fx-border-color: blue;");
+//        setStyle("-fx-background-color: lightgrey; -fx-border-color: blue;");
 
         // add scale transform
         scaleXProperty().bind(myScale);
         scaleYProperty().bind(myScale);
+        bounds = super.getBoundsInParent();
     }
 
     /**

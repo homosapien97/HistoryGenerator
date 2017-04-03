@@ -21,7 +21,7 @@ import ui.PannableCanvas;
 public class Main extends Application {
     public void start(Stage stage) {
         PannableCanvas canvas = new PannableCanvas();
-        Continent continent = new Continent(1.0, 0, new Random(2));
+        Continent continent = new Continent(8, 1024.0, 5.0, 12, new Random(9));
         System.out.println("Continent has been created");
         canvas.getChildren().add(continent);
         Scene scene = new Scene(canvas, 1024, 768);
