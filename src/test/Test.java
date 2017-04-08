@@ -85,19 +85,58 @@ import java.util.Random;
 //        launch(args);
 //    }
 //}
+//public class Test extends Application {
+//    public void start(Stage stage) {
+//        Random rand = new Random(2);
+////        PannableCanvas canvas = new PannableCanvas();
+//        Continent continent = new Continent(8, 1024.0, 2.7, 11, rand);
+//        System.out.println("Continent has been created");
+//        MountainRange mountainRange = new MountainRange(continent, 658.0, 2.0, 9, rand);
+//        System.out.println("Mountains have been created");
+//        mountainRange.setFill(Color.RED);
+//
+//        World world = new World();
+//        world.add(continent);
+//        world.add(mountainRange);
+//
+//        ArrayList<RenderModifier> renderOrder = new ArrayList<>();
+//        renderOrder.add(new RenderModifier(Continent.class) {
+//            @Override
+//            public void changeRenderSettings(Shape s) {
+//                s.setFill(Color.BROWN);
+//            }
+//        });
+//        renderOrder.add(new RenderModifier(MountainRange.class) {
+//            @Override
+//            public void changeRenderSettings(Shape s) {
+//                s.setFill(Color.WHITE);
+//            }
+//        });
+//
+//        WorldCanvas canvas = new WorldCanvas(world, renderOrder);
+//
+//        Scene scene = new Scene(canvas, 1024, 768);
+//        scene.setFill(Color.BLUE);
+//
+//        SceneGestures sceneGestures = new SceneGestures(canvas);
+//        scene.addEventFilter(MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+//        scene.addEventFilter(MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+//        scene.addEventFilter(ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+//
+//        stage.setScene(scene);
+//        stage.show();
+//    }
+//    public static void main(String[] args) {
+//        launch(args);
+//    }
+//}
 public class Test extends Application {
     public void start(Stage stage) {
-        Random rand = new Random(2);
-//        PannableCanvas canvas = new PannableCanvas();
-        Continent continent = new Continent(8, 1024.0, 2.7, 11, rand);
-        System.out.println("Continent has been created");
-        MountainRange mountainRange = new MountainRange(continent, 658.0, 2.0, 9, rand);
-        System.out.println("Mountains have been created");
-        mountainRange.setFill(Color.RED);
-
-        World world = new World();
-        world.add(continent);
-        world.add(mountainRange);
+        Random seeder = new Random();
+        long seed = seeder.nextLong();
+        Random rand = new Random(seed);
+        System.out.println("Seed: " + seed);
+        World world = new World(1, 2, rand);
 
         ArrayList<RenderModifier> renderOrder = new ArrayList<>();
         renderOrder.add(new RenderModifier(Continent.class) {

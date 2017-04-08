@@ -12,6 +12,10 @@ import java.util.Random;
 public class Blob extends LinkedList<Point2D> {
     private Random rand;
 
+    public Blob(BlobSettings blobSettings, Random rand) {
+        this(blobSettings.startPolygon, blobSettings.scale, blobSettings.jaggedness, blobSettings.deformations, rand);
+    }
+
     public Blob(int startPolygon, double scale, double jaggedness, int deformations, Random rand) {
         super(new RegularPolygon(new Point2D(0,0), startPolygon, scale));
         System.out.println("Generating blob");
@@ -19,7 +23,7 @@ public class Blob extends LinkedList<Point2D> {
         Point2D a;
         Point2D b;
         for(int ndefs = 0; ndefs < deformations; ndefs++) {
-            System.out.println("Beginning deformation " + ndefs);
+//            System.out.println("Beginning deformation " + ndefs);
             int i = 0;
             boolean done = false;
             for(ListIterator<Point2D> iter = this.listIterator(); !done && iter.hasNext(); i++) {

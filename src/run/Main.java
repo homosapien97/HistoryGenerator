@@ -9,42 +9,55 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import ui.RenderModifier;
 import ui.SceneGestures;
+import ui.WorldCanvas;
 import world.Continent;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import ui.PannableCanvas;
 import world.MountainRange;
+import world.World;
 
 /**
  * Created by homosapien97 on 4/1/17.
  */
 public class Main extends Application {
     public void start(Stage stage) {
-        Random rand = new Random(2);
-        PannableCanvas canvas = new PannableCanvas();
-        Continent continent = new Continent(8, 1024.0, 2.7, 11, rand);
-        System.out.println("Continent has been created");
-        MountainRange mountainRange = new MountainRange(continent, 658.0, 2.0, 9, rand);
-        System.out.println("Mountains have been created");
-        mountainRange.setFill(Color.RED);
-//        Polygon preint = mountainRange.preintersection;
-//        preint.setFill(Color.BLUE);
-        canvas.getChildren().add(continent);
-//        canvas.getChildren().add(preint);
-//        for(Polygon p: mountainRange.intersectionChunks) {
-//            p.setFill(new Color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble(), 1.0));
-//            canvas.getChildren().add(p);
-//        }
-        canvas.getChildren().add(mountainRange);
-        Scene scene = new Scene(canvas, 1024, 768);
+        Random seeder = new Random();
+        long seed = seeder.nextLong();
+//        long seed = 5760597914071523077l;
+        //bad seeds: 5760597914071523077l
+        Random rand = new Random(seed);
+        System.out.println("Seed: " + seed);
+        World world = new World(1, 5, rand);
 
-//        Group group = new Group();
-//        group.getChildren().add(continent);
-//        group.getChildren().add(canvas);
-//        Scene scene = new Scene(group, 1024, 768);
+        ArrayList<RenderModifier> renderOrder = new ArrayList<>();
+        renderOrder.add(new RenderModifier(Continent.class) {
+            @Override
+            public void changeRenderSettings(Shape s) {
+                s.setFill(Color.GRAY);
+            }
+        });
+        renderOrder.add(new RenderModifier(MountainRange.class) {
+            @Override
+            public void changeRenderSettings(Shape s) {
+                s.setFill(Color.RED);
+            }
+        });
+
+        WorldCanvas canvas = new WorldCanvas(world, renderOrder);
+
+        for(Shape s : world.mountains()) {
+            canvas.getChildren().addAll(((MountainRange) s).failures);
+        }
+
+        Scene scene = new Scene(canvas, 1024, 768);
+        scene.setFill(Color.LIGHTBLUE);
 
         SceneGestures sceneGestures = new SceneGestures(canvas);
         scene.addEventFilter(MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());

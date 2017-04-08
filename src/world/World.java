@@ -2,6 +2,8 @@ package world;
 
 import Utilities.Dependable;
 import Utilities.Dependent;
+import geometry.BlobSettings;
+import geometry.PolygonUtils;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 
@@ -12,7 +14,21 @@ import java.util.*;
  */
 public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
     int modificationCount = 0;
-    ArrayList<Dependent> dependents = new ArrayList<>();
+    LinkedList<Dependent> dependents = new LinkedList<>();
+    private static BlobSettings defaultContinentBlobSettings = new BlobSettings(8, 1024.0, 2.7, 11);
+    private static BlobSettings defaultMountainRangeBlobSettings = new BlobSettings(2, 128.0, 2.0, 8);
+
+    public World(int numContinents, int numMountainsPerContinent, Random rand) {
+        super();
+        for(int i = 0; i < numContinents; i++) {
+            //TODO make this actually work nicely with more than 1 continent
+            Continent continent = new Continent(defaultContinentBlobSettings, rand);
+            for(int j = 0; j < numMountainsPerContinent; j++) {
+                add(new MountainRange(continent, defaultMountainRangeBlobSettings, rand));
+            }
+            add(continent);
+        }
+    }
 
     @Override
     public void addDependent(Dependent dependent) {
@@ -53,8 +69,12 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
                 HashSet<Shape> mountains = this.get(c);
                 Iterator<Shape> iterator = mountains.iterator();
                 while(iterator.hasNext()) {
-                    MountainRange element = (MountainRange) iterator.next();
-                    if(mountainRange.union(element)) {
+//                    MountainRange element = (MountainRange) iterator.next();
+//                    if(mountainRange.union(element)) {
+//                        iterator.remove();
+//                    }
+                    Polygon union = PolygonUtils.union(mountainRange, (MountainRange) (iterator.next()));
+                    if(union != null) {
                         iterator.remove();
                     }
                 }

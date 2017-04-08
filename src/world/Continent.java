@@ -1,6 +1,8 @@
 package world;
 
 import geometry.Blob;
+import geometry.BlobSettings;
+import javafx.geometry.Bounds;
 import javafx.scene.shape.*;
 
 import java.util.Random;
@@ -9,6 +11,9 @@ import java.util.Random;
  * Created by homosapien97 on 4/1/17.
  */
 public class Continent extends Polygon {
+    public Continent(BlobSettings blobSettings, Random rand) {
+        this(blobSettings.startPolygon, blobSettings.scale, blobSettings.jaggedness, blobSettings.deformations, rand);
+    }
     public Continent(int startPolygon, double scale, double jaggedness, int deformations, Random rand) {
         super();
         this.getPoints().addAll((new Blob(startPolygon, scale, jaggedness, deformations, rand)).getDoubleList());
@@ -18,7 +23,10 @@ public class Continent extends Polygon {
 //        this.setTranslateX(tx);
 //        this.setTranslateY(ty);
 //        System.out.println("Continent has been translated");
-//        this.setRotate(rand.nextDouble() * 360);
+        Bounds bounds = this.getBoundsInParent();
+        this.setTranslateX((rand.nextDouble()-0.5) * bounds.getWidth());
+        this.setTranslateY((rand.nextDouble()-0.5) * bounds.getHeight());
+        this.setRotate(rand.nextDouble() * 360);
 //        System.out.println("Continent has been rotated");
     }
     public boolean union(Continent c) {
