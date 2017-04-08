@@ -7,15 +7,14 @@ import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import ui.PannableCanvas;
 import ui.SceneGestures;
 import world.Continent;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -33,20 +32,41 @@ import java.util.Random;
 
 public class Test extends Application {
     public void start(Stage stage) {
+        Random rand = new Random(1);
         PannableCanvas canvas = new PannableCanvas();
         DrawablePolygon p1 = new DrawablePolygon(new Point2D(0,0), 3, 100.0);
         DrawablePolygon p2 = new DrawablePolygon(new Point2D(0,0), 3, 100.0);
         p2.setScaleX(0.5);
         p2.setScaleY(0.5);
 
-//        p2.setTranslateX(-50);
+        p2.setTranslateX(-50);
         p2.setRotate(90);
+        p1.setRotate(30);
         Path p3 = (Path) Polygon.intersect(p1, p2);
         p3.setFill(Color.RED);
-        System.out.println("Polygon has been created");
+
+        ArrayList<Polygon> intersections = new ArrayList<>();
+        for (PathElement pe : p3.getElements()) {
+            if (pe instanceof MoveTo) {
+                MoveTo mt = (MoveTo) pe;
+                intersections.add(new Polygon());
+                intersections.get(intersections.size() - 1).getPoints().addAll(mt.getX(), mt.getY());
+            } else if (pe instanceof LineTo) {
+                LineTo lt = (LineTo) pe;
+                intersections.get(intersections.size() - 1).getPoints().addAll(lt.getX(), lt.getY());
+            }
+        }
+
+
         canvas.getChildren().add(p1);
         canvas.getChildren().add(p2);
         canvas.getChildren().add(p3);
+
+        for(Polygon p : intersections) {
+            p.setFill(new Color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble(), 1.0));
+            canvas.getChildren().add(p);
+        }
+
         Scene scene = new Scene(canvas, 1024, 768);
 
         SceneGestures sceneGestures = new SceneGestures(canvas);

@@ -1,7 +1,7 @@
 package world;
 
 import geometry.Blob;
-import javafx.scene.shape.Polygon;
+import javafx.scene.shape.*;
 
 import java.util.Random;
 
@@ -20,5 +20,29 @@ public class Continent extends Polygon {
 //        System.out.println("Continent has been translated");
 //        this.setRotate(rand.nextDouble() * 360);
 //        System.out.println("Continent has been rotated");
+    }
+    public boolean union(Continent c) {
+        Path unionPath = (Path) (Polygon.union(this, c));
+        Polygon union = new Polygon();
+        int unions = 0;
+        for (PathElement pe : unionPath.getElements()) {
+            if (pe instanceof MoveTo) {
+                if(unions == 0) {
+                    unions++;
+                    MoveTo mt = (MoveTo) pe;
+                    union.getPoints().addAll(mt.getX(), mt.getY());
+                } else {
+                    return false;
+                }
+            } else if (pe instanceof LineTo) {
+                LineTo lt = (LineTo) pe;
+                union.getPoints().addAll(lt.getX(), lt.getY());
+            }
+        }
+        this.setTranslateX(0.0);
+        this.setTranslateY(0.0);
+        this.getPoints().clear();
+        this.getPoints().addAll(union.getPoints());
+        return true;
     }
 }

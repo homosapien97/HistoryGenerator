@@ -30,94 +30,97 @@ public class Blob extends LinkedList<Point2D> {
                     b = this.getFirst();
                     done = true;
                 }
-                Point2D d = getMutation(a, b, jaggedness / (ndefs + 1));
+                boolean fail;
+                do {
+                    fail = false;
+                    Point2D d = getMutation(a, b, jaggedness / (ndefs + 1));
 
-                //test whether (ad) crosses anything from 0 to index(a)-1 or index(a+1) to end
-                //i = index(a)
+                    //test whether (ad) crosses anything from 0 to index(a)-1 or index(a+1) to end
+                    //i = index(a)
 
-                //test whether (bd) crosses anything from 0 to index(b)-1 or index(b+1) to end
-                //i+1 = index(b)
-                boolean fail = false;
-                int j = 0;
-                ListIterator<Point2D> jter = this.listIterator();
-                Point2D x;
-                Point2D y;
-                if(done) {
-                    //test whether ad crosses anything from 0 to the last index - 2
-                    //test whether db crosses anything from 1 to the last index.
-                    x = jter.next();
-                    y = jter.next();
-                    jter.previous();
-                    if(PointUtils.crosses(x, y, a, d)) {
-                        fail = true;
-                    } else {
-                        for(; j < this.size() - 2; j++) {
-                            x = jter.next();
-                            y = jter.next();
-                            if(PointUtils.crosses(x, y, a, d) || PointUtils.crosses(x, y, d, b)) {
-                                fail = true;
-                                jter.previous();
-                                break;
-                            }
-                            jter.previous();
-                        }
-                        if(!fail) {
-                            jter.previous();
-                            x = jter.next();
-                            y = jter.next();
-                            if(PointUtils.crosses(x, y, d, b)) {
-                                fail = true;
-                            } else {
-                                iter.add(d);
-                                i++;
-                            }
-                        }
-                    }
-                    if(fail) {
-                    }
-                } else {
-                    for (; j < i - 1; j++) {
+                    //test whether (bd) crosses anything from 0 to index(b)-1 or index(b+1) to end
+                    //i+1 = index(b)
+                    int j = 0;
+                    ListIterator<Point2D> jter = this.listIterator();
+                    Point2D x;
+                    Point2D y;
+                    if (done) {
+                        //test whether ad crosses anything from 0 to the last index - 2
+                        //test whether db crosses anything from 1 to the last index.
                         x = jter.next();
                         y = jter.next();
-                        if (PointUtils.crosses(x, y, a, d) || PointUtils.crosses(x, y, d, b)) {
-                            fail = true;
-                            break;
-                        }
                         jter.previous();
-                    }
-                    if (!fail) {
-                        x = jter.next();
-                        y = jter.next();
-                        if (PointUtils.crosses(x, y, d, b)) {
+                        if (PointUtils.crosses(x, y, a, d)) {
                             fail = true;
                         } else {
-                            while (jter.hasNext()) {
+                            for (; j < this.size() - 2; j++) {
                                 x = jter.next();
-                                if (jter.hasNext()) {
-                                    y = jter.next();
-                                } else {
-                                    break;
-                                }
+                                y = jter.next();
                                 if (PointUtils.crosses(x, y, a, d) || PointUtils.crosses(x, y, d, b)) {
                                     fail = true;
+                                    jter.previous();
                                     break;
                                 }
                                 jter.previous();
                             }
                             if (!fail) {
-                                y = this.getFirst();
-                                if (PointUtils.crosses(x, y, a, d) || PointUtils.crosses(x, y, d, b)) {
+                                jter.previous();
+                                x = jter.next();
+                                y = jter.next();
+                                if (PointUtils.crosses(x, y, d, b)) {
                                     fail = true;
                                 } else {
-                                    iter.previous();
                                     iter.add(d);
-                                    iter.next();
                                     i++;
                                 }
                             }
                         }
+                        if (fail) {
+                        }
+                    } else {
+                        for (; j < i - 1; j++) {
+                            x = jter.next();
+                            y = jter.next();
+                            if (PointUtils.crosses(x, y, a, d) || PointUtils.crosses(x, y, d, b)) {
+                                fail = true;
+                                break;
+                            }
+                            jter.previous();
+                        }
+                        if (!fail) {
+                            x = jter.next();
+                            y = jter.next();
+                            if (PointUtils.crosses(x, y, d, b)) {
+                                fail = true;
+                            } else {
+                                while (jter.hasNext()) {
+                                    x = jter.next();
+                                    if (jter.hasNext()) {
+                                        y = jter.next();
+                                    } else {
+                                        break;
+                                    }
+                                    if (PointUtils.crosses(x, y, a, d) || PointUtils.crosses(x, y, d, b)) {
+                                        fail = true;
+                                        break;
+                                    }
+                                    jter.previous();
+                                }
+                                if (!fail) {
+                                    y = this.getFirst();
+                                    if (PointUtils.crosses(x, y, a, d) || PointUtils.crosses(x, y, d, b)) {
+                                        fail = true;
+                                    } else {
+                                        iter.previous();
+                                        iter.add(d);
+                                        iter.next();
+                                        i++;
+                                    }
+                                }
+                            }
+                        }
                     }
-                }
+                } while (fail);
                 iter.previous();
             }
         }
