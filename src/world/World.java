@@ -28,22 +28,33 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
             for(int j = 0; j < numMountainsPerContinent; j++) {
                 add(new Mountain(continent, defaultMountainRangeBlobSettings, rand));
             }
-            Polygon continentCopy = PolygonUtils.copy(continent);
-            Polygon safeCopy;
-            Bounds ccBounds;
+//            Polygon continentCopy = PolygonUtils.copy(continent);
+            HashSet<Polygon> continentCopy = new HashSet<>();
+            continentCopy.add(PolygonUtils.copy(continent));
+//            Polygon safeCopy;
+            HashSet<Polygon> safeCopy;
+//            Bounds ccBounds;
             do {
 //                System.out.println("Adding a watershed");
                 Watershed w = new Watershed(continentCopy, continent.scale, continent.deformations, rand);
                 try {
-                    safeCopy = PolygonUtils.polygon(Shape.subtract(continentCopy, w));
+                    safeCopy = PolygonUtils.subtract(continentCopy, w);
+                    System.out.println("safecopy size " + safeCopy.size());
                     continentCopy = safeCopy;
                 } catch (Exception e) {
                     System.out.println("watershed subtraction fail");
-                    break;
+//                    break;
                 }
-                ccBounds = continentCopy.getBoundsInParent();
+//                ccBounds = continentCopy.getBoundsInParent();
                 add(w);
-            } while(continentCopy != null && ccBounds.getWidth() * ccBounds.getHeight() > 1000.0);
+//            } while(continentCopy != null && continentCopy.getPoints().size() != 0 /*&& ccBounds.getWidth() * ccBounds.getHeight() > 1.0*/);
+            } while(continentCopy.size() != 0);
+//            System.out.print("Stopped making watersheds because " );
+//            if(continentCopy == null) {
+//                System.out.println("continent copy was null");
+//            } else {
+//                System.out.println("continent copy had no points");
+//            }
             add(continent);
         }
     }
@@ -127,8 +138,11 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
                 }
                 if(toRemove != null) {
                     watersheds.remove(toRemove);
+                } else {
+                    watersheds.add(watershed);
                 }
             } else {
+                System.out.println("First watershed!");
                 HashSet<Shape> al = new HashSet<>();
                 al.add(s);
                 this.put(c, al);

@@ -13,7 +13,9 @@ import java.util.*;
 
 public class Squiggly extends LinkedList<Point2D> {
     private Random rand;
-    public final Polygon container;
+//    public final Polygon container;
+//    public final HashSet<Polygon> containers;
+    public Polygon container;
     public final double segmentLength;
     public final double curivness;
 
@@ -21,10 +23,13 @@ public class Squiggly extends LinkedList<Point2D> {
         this(squigglySettings.container, squigglySettings.segmentLength, squigglySettings.curviness, rand);
     }
 
+    public Squiggly(HashSet<Polygon> containers, double segmentLength, double curviness, Random rand) {
+        this(PolygonUtils.firstNonNull(containers), segmentLength, curviness, rand);
+    }
+
     public Squiggly(Polygon container, double segmentLength, double curviness, Random rand) {
         super();
         System.out.println("Generating squiggly with sidelength " + segmentLength);
-//        System.out.println("Pick property " + container.isPickOnBounds());
         if(container == null) {
             throw new IllegalArgumentException("Cannot generate Squiggly within null/empty polygon");
         }
@@ -35,21 +40,14 @@ public class Squiggly extends LinkedList<Point2D> {
             throw new IllegalArgumentException("Cannot have curviness < 0");
         }
         this.rand = rand;
+//        this.container = container;
+//        this.containers = new HashSet<>();
+//        containers.add(container);
         this.container = container;
         this.segmentLength = segmentLength;
         this.curivness = curviness;
         //add points until you cross the container. do not add points that cross self.
         this.add(getStart());
-//        do {
-//            System.out.println("Generating second point");
-//            double theta_first = rand.nextDouble() * Math.PI * 2;
-//            this.add(new Point2D(this.get(0).getX() + segmentLength * Math.cos(theta_first),
-//                    this.get(0).getY() + segmentLength * Math.sin(theta_first)));
-//            System.out.println("Tried " + this.getLast().getX() + ", " + this.getLast().getY());
-//            if (!contained(this.getLast().getX(), this.getLast().getY())) {
-//                this.removeLast();
-//            }
-//        } while(this.size() == 1);
         this.add(getSecond());
         if(!contained(this.getLast().getX(), this.getLast().getY())) {
             System.out.println("Only 2 points");
@@ -73,14 +71,12 @@ public class Squiggly extends LinkedList<Point2D> {
                     }
                 }
                 if(crosses) {
-//                System.out.println("Squiggly failure");
                     consecutiveFails++;
                     if(consecutiveFails > 3) {
                         this.removeLast();
                         consecutiveFails = 0;
                     }
                 } else {
-//                System.out.println("Squiggly success");
                     this.addLast(next);
                 }
             } while(contained(next.getX(), next.getY()));
@@ -135,9 +131,9 @@ public class Squiggly extends LinkedList<Point2D> {
 
     private Point2D getStart() {
         System.out.println("Generating first point");
-        Bounds containerLocalBounds = container.getBoundsInLocal();
-        LinkedList<Polygon> containers = PolygonUtils.polygons(container);
-        Bounds containerParentBounds = containers.getFirst().getBoundsInParent();
+//        Bounds containerLocalBounds = container.getBoundsInLocal();
+//        LinkedList<Polygon> containers = PolygonUtils.polygons(container);
+        Bounds containerParentBounds = container.getBoundsInParent();
 //        System.out.println("Container local bounds: " + containerLocalBounds);
 //        System.out.println("Container parent bounds: " + containerParentBounds);
         Point2D ret;
@@ -152,7 +148,7 @@ public class Squiggly extends LinkedList<Point2D> {
             y = containerParentBounds.getMinY() + rand.nextDouble() * containerParentBounds.getHeight();
 //            System.out.println("Tried " + x + ", " + y);
 //        } while (!container.contains(x, y));
-        } while(!PolygonUtils.contains(containers.getFirst(), x, y));
+        } while(!PolygonUtils.contains(container, x, y));
         return new Point2D(x, y);
     }
 

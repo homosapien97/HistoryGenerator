@@ -6,9 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 
 import javax.sound.sampled.LineEvent;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by homosapien97 on 4/8/17.
@@ -195,6 +193,18 @@ public class PolygonUtils {
         return ret;
     }
 
+    public static Polygon firstNonNull(HashSet<Polygon> polygons) {
+        Iterator<Polygon> cIterator = polygons.iterator();
+        if(cIterator.hasNext()) {
+            Polygon c = null;
+            do {
+                c = cIterator.next();
+            } while (cIterator == null && cIterator.hasNext() && c.getPoints().size() == 0);
+            return c;
+        }
+        return null;
+    }
+
     public static Polygon intersection(Shape a, Shape b) {
         a.setFill(Color.BLACK);
         b.setFill(Color.BLACK);
@@ -309,29 +319,29 @@ public class PolygonUtils {
         }
     }
 
-    public static Polygon subtract(Shape a, Shape b) {
-        Path subtractionPath = (Path) (Polygon.subtract(a, b));
-        Polygon ret = new Polygon();
-        boolean split = false;
-        for(PathElement pe : subtractionPath.getElements()) {
-            if(pe instanceof MoveTo) {
-                if(split) {
-                    break;
-                } else {
-                    split = true;
-                    MoveTo mt = (MoveTo) pe;
-                    ret.getPoints().addAll(mt.getX(), mt.getY());
-                }
-            } else if(pe instanceof  LineTo) {
-                LineTo lt = (LineTo) pe;
-                ret.getPoints().addAll(lt.getX(), lt.getY());
-            }
-        }
-        if (ret.getPoints().size() == 0) {
-            return null;
-        }
-        return ret;
-    }
+//    public static Polygon subtract(Shape a, Shape b) {
+//        Path subtractionPath = (Path) (Polygon.subtract(a, b));
+//        Polygon ret = new Polygon();
+//        boolean split = false;
+//        for(PathElement pe : subtractionPath.getElements()) {
+//            if(pe instanceof MoveTo) {
+//                if(split) {
+//                    break;
+//                } else {
+//                    split = true;
+//                    MoveTo mt = (MoveTo) pe;
+//                    ret.getPoints().addAll(mt.getX(), mt.getY());
+//                }
+//            } else if(pe instanceof  LineTo) {
+//                LineTo lt = (LineTo) pe;
+//                ret.getPoints().addAll(lt.getX(), lt.getY());
+//            }
+//        }
+//        if (ret.getPoints().size() == 0) {
+//            return null;
+//        }
+//        return ret;
+//    }
 
     public static Polygon subtract(Polygon a, Polygon b) {
         Path subtractionPath = (Path) (Polygon.subtract(a, b));
@@ -357,71 +367,86 @@ public class PolygonUtils {
         return ret;
     }
 
-//    public static Polygon removeTransforms(Polygon p) {
-//        if(p.getTranslateX() != 0.0 || p.getTranslateY() != 0.0 || p.getRotate() != 0.0 || p.getScaleX() != 1.0 || p.getScaleY() != 1.0) {
-//            p.parentToLocal()
-//            Polygon ret = copy(p);
-//            p.setTranslateX(0.0);
-//            p.setTranslateY(0.0);
-//            p.setRotate(0.0);
-//            p.setScaleX(1.0);
-//            p.setScaleY(1.0);
-//            p.getPoints().clear();
-//            p.getPoints().addAll(ret.getPoints());
-//        }
-//        return p;
-//    }
-
-    public static boolean contains(Polygon container, double x, double y) {
-//        System.out.println("using polgyon contains");
-//        removeTransforms(container);
-        Point2D pt = container.parentToLocal(x, y);
-        return container.contains(pt);
-        /*
-        //this is so stupid
-        Bounds cb = container.getBoundsInParent();
-//        if(cb.getWidth() < 10.0 || cb.getHeight() < 10.0) {
-//            return Math.abs(x - cb.getMinX() - cb.getWidth() / 2) < 2.0 && Math.abs(y - cb.getMinY() - cb.getHeight() / 2) < 2.0;
-//        }
-        Polygon rect = new Polygon();
-        rect.getPoints().addAll(
-                x - Double.MIN_VALUE, y - Double.MIN_VALUE,
-                x + Double.MIN_VALUE, y - Double.MIN_VALUE,
-                x + Double.MIN_VALUE, y + Double.MIN_VALUE,
-                x - Double.MIN_VALUE, y + Double.MIN_VALUE
-        );
-        try {
-            Polygon subt = PolygonUtils.subtract(rect, container);
-            if(subt == null || subt.getPoints().size() == 0) {
-                return true;
+    public static HashSet<Polygon> multiSubtract(Polygon a, Polygon b) {
+        if(a == null || a.getPoints().size() == 0) {
+            if(b == null || b.getPoints().size() == 0) {
+                return null;
             } else {
-                return false;
+                HashSet<Polygon> ret = new HashSet<>();
+                ret.add(b);
+                return ret;
             }
-        } catch (Exception e) {
-            return false;
-        }
-        */
-    }
-
-    public static boolean contains(Shape container, double x, double y) {
-        System.out.println("using shape contains");
-        Polygon rect = new Polygon();
-        rect.getPoints().addAll(
-                x - 1.0 / 512.0, y - 1.0 / 512.0,
-                x + 1.0 / 512.0, y - 1.0 / 512.0,
-                x + 1.0 / 512.0, y + 1.0 / 512.0,
-                x - 1.0 / 512.0, y + 1.0 / 512.0
-        );
-        try {
-            Path subt = (Path) Shape.subtract(rect, container);
-            for(PathElement pe : subt.getElements()) {
-                if(pe instanceof LineTo) {
-                    return false;
+        } else {
+            a.setFill(Color.BLACK);
+            b.setFill(Color.BLACK);
+            if(b == null || b.getPoints().size() == 0) {
+                HashSet<Polygon> ret = new HashSet<>();
+                ret.add(a);
+                return ret;
+            } else {
+                try {
+                    Path subtPath = (Path) (Polygon.subtract(a, b));
+                    Polygon current = null;
+                    HashSet<Polygon> ret = new HashSet<>();
+                    for (PathElement pe : subtPath.getElements()) {
+                        if (pe instanceof MoveTo) {
+                            if(current != null) {
+                                ret.add(current);
+                            }
+                            current = new Polygon();
+                            MoveTo mt = (MoveTo) pe;
+                            current.getPoints().addAll(mt.getX(), mt.getY());
+                        } else if (pe instanceof LineTo) {
+                            LineTo lt = (LineTo) pe;
+                            current.getPoints().addAll(lt.getX(), lt.getY());
+                        } else if (pe instanceof ClosePath) {
+                            ret.add(current);
+                        }
+                    }
+                    return ret;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Polygon subtraction has 0 points");
+                    return null;
                 }
             }
-        } catch (Exception e){
-            return false;
         }
-        return true;
     }
+
+    public static HashSet<Polygon> subtract(HashSet<Polygon> a, Polygon b) {
+        HashSet<Polygon> result = new HashSet<>();
+        for(Polygon p : a) {
+            HashSet<Polygon> subt = multiSubtract(p, b);
+            if(subt != null && subt.size() != 0) {
+                result.addAll(subt);
+            }
+        }
+        return result;
+    }
+
+    public static boolean contains(Polygon container, double x, double y) {
+        Point2D pt = container.parentToLocal(x, y);
+        return container.contains(pt);
+    }
+
+//    public static boolean contains(Shape container, double x, double y) {
+//        System.out.println("using shape contains");
+//        Polygon rect = new Polygon();
+//        rect.getPoints().addAll(
+//                x - 1.0 / 512.0, y - 1.0 / 512.0,
+//                x + 1.0 / 512.0, y - 1.0 / 512.0,
+//                x + 1.0 / 512.0, y + 1.0 / 512.0,
+//                x - 1.0 / 512.0, y + 1.0 / 512.0
+//        );
+//        try {
+//            Path subt = (Path) Shape.subtract(rect, container);
+//            for(PathElement pe : subt.getElements()) {
+//                if(pe instanceof LineTo) {
+//                    return false;
+//                }
+//            }
+//        } catch (Exception e){
+//            return false;
+//        }
+//        return true;
+//    }
 }

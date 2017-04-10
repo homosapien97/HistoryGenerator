@@ -75,7 +75,7 @@ public class Main extends Application {
 ////            canvas.getChildren().addAll(w.unions);
             System.out.println("Adding circle at " + w.endPoint.getX() + ", " + w.endPoint.getY());
             Circle end = new Circle(w.endPoint.getX(), w.endPoint.getY(), 50.0);
-            end.setFill(new Color(0.5, 0.5, 0.5, 0.5));
+            end.setFill(w.getFill());
             canvas.getChildren().add(end);
         }
 
