@@ -2,7 +2,6 @@ package world;
 
 import geometry.Blob;
 import geometry.BlobSettings;
-import geometry.RegularPolygon;
 import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
@@ -13,14 +12,14 @@ import java.util.Random;
 /**
  * Created by homosapien97 on 4/6/17.
  */
-public class MountainRange extends Polygon {
+public class Mountain extends Polygon {
     public ArrayList<Polygon> failures = new ArrayList<>();
     public static final int MAX_SHRINKS = 4;
     public static final double SHRINK_FACTOR = 0.75;
     Continent continent;
 
     private void setSelfToPolygon(Polygon polygon) {
-        System.out.println("Setting self to polygon");
+//        System.out.println("Setting self to polygon");
         this.getPoints().clear();
         this.setTranslateX(0.0);
         this.setTranslateY(0.0);
@@ -130,15 +129,15 @@ public class MountainRange extends Polygon {
      * @param continent
      * @param polygon
      */
-    public MountainRange(Continent continent, Polygon polygon) {
+    public Mountain(Continent continent, Polygon polygon) {
         this.continent = continent;
         setSelfToPolygon(polygon);
     }
-    public MountainRange(Continent continent, BlobSettings blobSettings, Random rand) {
+    public Mountain(Continent continent, BlobSettings blobSettings, Random rand) {
         this(continent, blobSettings.scale, blobSettings.jaggedness, blobSettings.deformations, rand);
     }
 
-    public MountainRange(Continent continent, double scale, double jaggedness, int deformations, Random rand) {
+    public Mountain(Continent continent, double scale, double jaggedness, int deformations, Random rand) {
         super();
         this.continent = continent;
 //        boolean done = false;
@@ -150,7 +149,7 @@ public class MountainRange extends Polygon {
         } while(!shrinkSelfToFit(continent) && tries < 50);
 
     }
-//    public boolean union(MountainRange m) {
+//    public boolean union(Mountain m) {
 //        if(m == null || m.getPoints().size() == 0) {
 //            System.out.println("null mountain tried to union");
 //            return false;

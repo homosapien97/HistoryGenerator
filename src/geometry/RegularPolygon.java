@@ -1,6 +1,7 @@
 package geometry;
 
 import javafx.geometry.Point2D;
+import javafx.scene.shape.Polygon;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -32,6 +33,14 @@ public class RegularPolygon extends ArrayList<Point2D> {
         for(Point2D p : this) {
             ret.add(p.getX());
             ret.add(p.getY());
+        }
+        return ret;
+    }
+
+    public Polygon getPolygon() {
+        Polygon ret = new Polygon();
+        for(Point2D p : this) {
+            ret.getPoints().addAll(p.getX(), p.getY());
         }
         return ret;
     }

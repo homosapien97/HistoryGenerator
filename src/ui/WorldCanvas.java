@@ -24,9 +24,13 @@ public class WorldCanvas extends PannableCanvas implements Dependent{
     private void refreshChildren() {
         this.getChildren().clear();
         for(RenderModifier rm : renderOrder) {
-            for(Shape s : world.getUnmodifiable(rm.class_)) {
-                rm.changeRenderSettings(s);
-                this.getChildren().add(s);
+            try {
+                for (Shape s : world.getUnmodifiable(rm.class_)) {
+                    rm.changeRenderSettings(s);
+                    this.getChildren().add(s);
+                }
+            } catch (NullPointerException e) {
+                System.err.println("NPE CLASS: " + rm.class_);
             }
         }
     }

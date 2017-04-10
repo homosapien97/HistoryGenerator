@@ -18,7 +18,7 @@ public class Blob extends LinkedList<Point2D> {
 
     public Blob(int startPolygon, double scale, double jaggedness, int deformations, Random rand) {
         super(new RegularPolygon(new Point2D(0,0), startPolygon, scale));
-        System.out.println("Generating blob");
+//        System.out.println("Generating blob");
         this.rand = rand;
         Point2D a;
         Point2D b;

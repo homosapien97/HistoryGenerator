@@ -1,21 +1,17 @@
 package test;
 
-import geometry.LineSegment;
-import geometry.PointUtils;
 import javafx.application.Application;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
-import ui.PannableCanvas;
 import ui.RenderModifier;
 import ui.SceneGestures;
 import ui.WorldCanvas;
 import world.Continent;
-import world.MountainRange;
+import world.Mountain;
 import world.World;
 
 import java.util.ArrayList;
@@ -91,7 +87,7 @@ import java.util.Random;
 ////        PannableCanvas canvas = new PannableCanvas();
 //        Continent continent = new Continent(8, 1024.0, 2.7, 11, rand);
 //        System.out.println("Continent has been created");
-//        MountainRange mountainRange = new MountainRange(continent, 658.0, 2.0, 9, rand);
+//        Mountain mountainRange = new Mountain(continent, 658.0, 2.0, 9, rand);
 //        System.out.println("Mountains have been created");
 //        mountainRange.setFill(Color.RED);
 //
@@ -106,7 +102,7 @@ import java.util.Random;
 //                s.setFill(Color.BROWN);
 //            }
 //        });
-//        renderOrder.add(new RenderModifier(MountainRange.class) {
+//        renderOrder.add(new RenderModifier(Mountain.class) {
 //            @Override
 //            public void changeRenderSettings(Shape s) {
 //                s.setFill(Color.WHITE);
@@ -136,7 +132,7 @@ public class Test extends Application {
         long seed = seeder.nextLong();
         Random rand = new Random(seed);
         System.out.println("Seed: " + seed);
-        World world = new World(1, 2, rand);
+        World world = new World(1, 2, 1, rand);
 
         ArrayList<RenderModifier> renderOrder = new ArrayList<>();
         renderOrder.add(new RenderModifier(Continent.class) {
@@ -145,7 +141,7 @@ public class Test extends Application {
                 s.setFill(Color.BROWN);
             }
         });
-        renderOrder.add(new RenderModifier(MountainRange.class) {
+        renderOrder.add(new RenderModifier(Mountain.class) {
             @Override
             public void changeRenderSettings(Shape s) {
                 s.setFill(Color.WHITE);

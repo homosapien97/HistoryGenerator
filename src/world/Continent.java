@@ -11,11 +11,21 @@ import java.util.Random;
  * Created by homosapien97 on 4/1/17.
  */
 public class Continent extends Polygon {
+    public final int startPolygon;
+    public final double scale;
+    public final double jaggedness;
+    public final int deformations;
+    public final Random rand;
     public Continent(BlobSettings blobSettings, Random rand) {
         this(blobSettings.startPolygon, blobSettings.scale, blobSettings.jaggedness, blobSettings.deformations, rand);
     }
     public Continent(int startPolygon, double scale, double jaggedness, int deformations, Random rand) {
         super();
+        this.startPolygon = startPolygon;
+        this.scale = scale;
+        this.jaggedness = jaggedness;
+        this.deformations = deformations;
+        this.rand = rand;
         this.getPoints().addAll((new Blob(startPolygon, scale, jaggedness, deformations, rand)).getDoubleList());
         System.out.println("Blob has been added to continent");
 //        double tx = this.getLayoutBounds().getMinX() + this.getLayoutBounds().getWidth() / 2;

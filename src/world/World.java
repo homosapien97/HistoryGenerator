@@ -3,7 +3,9 @@ package world;
 import Utilities.Dependable;
 import Utilities.Dependent;
 import geometry.BlobSettings;
+import geometry.PointUtils;
 import geometry.PolygonUtils;
+import javafx.geometry.Bounds;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 
@@ -16,16 +18,32 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
     int modificationCount = 0;
     LinkedList<Dependent> dependents = new LinkedList<>();
     private static BlobSettings defaultContinentBlobSettings = new BlobSettings(8, 1024.0, 2.7, 11);
-    private static BlobSettings defaultMountainRangeBlobSettings = new BlobSettings(2, 128.0, 2.0, 8);
+    private static BlobSettings defaultMountainRangeBlobSettings = new BlobSettings(2, 228.0, 2.0, 8);
 
-    public World(int numContinents, int numMountainsPerContinent, Random rand) {
+    public World(int numContinents, int numMountainsPerContinent, int numWatershedsPerContinent, Random rand) {
         super();
         for(int i = 0; i < numContinents; i++) {
             //TODO make this actually work nicely with more than 1 continent
             Continent continent = new Continent(defaultContinentBlobSettings, rand);
             for(int j = 0; j < numMountainsPerContinent; j++) {
-                add(new MountainRange(continent, defaultMountainRangeBlobSettings, rand));
+                add(new Mountain(continent, defaultMountainRangeBlobSettings, rand));
             }
+            Polygon continentCopy = PolygonUtils.copy(continent);
+            Polygon safeCopy;
+            Bounds ccBounds;
+            do {
+//                System.out.println("Adding a watershed");
+                Watershed w = new Watershed(continentCopy, continent.scale, continent.deformations, rand);
+                try {
+                    safeCopy = PolygonUtils.polygon(Shape.subtract(continentCopy, w));
+                    continentCopy = safeCopy;
+                } catch (Exception e) {
+                    System.out.println("watershed subtraction fail");
+                    break;
+                }
+                ccBounds = continentCopy.getBoundsInParent();
+                add(w);
+            } while(continentCopy != null && ccBounds.getWidth() * ccBounds.getHeight() > 1000.0);
             add(continent);
         }
     }
@@ -62,23 +80,54 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
                 al.add(s);
                 this.put(c, al);
             }
-        } else if(s instanceof MountainRange) {
-            c = MountainRange.class;
+        } else if(s instanceof Mountain) {
+            c = Mountain.class;
             if(containsKey(c)) {
-                MountainRange mountainRange = (MountainRange) s;
+                Mountain mountainRange = (Mountain) s;
                 HashSet<Shape> mountains = this.get(c);
                 Iterator<Shape> iterator = mountains.iterator();
                 while(iterator.hasNext()) {
-//                    MountainRange element = (MountainRange) iterator.next();
+//                    Mountain element = (Mountain) iterator.next();
 //                    if(mountainRange.union(element)) {
 //                        iterator.remove();
 //                    }
-                    Polygon union = PolygonUtils.union(mountainRange, (MountainRange) (iterator.next()));
+                    Polygon union = PolygonUtils.union(mountainRange, (Mountain) (iterator.next()));
                     if(union != null) {
                         iterator.remove();
                     }
                 }
                 mountains.add(mountainRange);
+            } else {
+                HashSet<Shape> al = new HashSet<>();
+                al.add(s);
+                this.put(c, al);
+            }
+        } else if(s instanceof  Watershed) {
+            System.out.println("Adding a watershed");
+            c = Watershed.class;
+            if(containsKey(c) && get(c) != null) {
+                Watershed watershed = (Watershed) s;
+                HashSet<Shape> watersheds = this.get(c);
+                Watershed toRemove = null;
+                for(Shape shape : watersheds) {
+                    Watershed extant = (Watershed) shape;
+                    if(PolygonUtils.contains(extant, watershed.endPoint.getX(), watershed.endPoint.getY())) {
+                        System.out.println("New watershed's endpoint is already in an extant watershed");
+                        if(PolygonUtils.contains(watershed, extant.endPoint.getX(), extant.endPoint.getY())) {
+                            System.out.println("Extant watershed's endpoint is also in new watershed!");
+                        }
+                        Polygon safeUnion = PolygonUtils.union(watershed, extant);
+                        if(safeUnion != null && safeUnion.getPoints().size() != 0) {
+                            System.out.println("Union successful");
+                            toRemove = extant;
+                            watersheds.add(new Watershed(safeUnion, extant.endPoint));
+                            break;
+                        }
+                    }
+                }
+                if(toRemove != null) {
+                    watersheds.remove(toRemove);
+                }
             } else {
                 HashSet<Shape> al = new HashSet<>();
                 al.add(s);
@@ -111,7 +160,10 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
         return this.get(Continent.class);
     }
     public Set<Shape> mountains() {
-        return this.get(MountainRange.class);
+        return this.get(Mountain.class);
+    }
+    public Set<Shape> watersheds() {
+        return this.get(Watershed.class);
     }
     public Set<Shape> others() {
         return this.get(Shape.class);
@@ -123,7 +175,7 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
     }
     public Set<Shape> unmodifiableMountains() {
         modificationCount--;
-        return Collections.unmodifiableSet(super.get(MountainRange.class));
+        return Collections.unmodifiableSet(super.get(Mountain.class));
     }
     public Set<Shape> unmodifiableOthers() {
         modificationCount--;
