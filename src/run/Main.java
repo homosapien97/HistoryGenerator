@@ -12,29 +12,26 @@ import javafx.stage.Stage;
 import ui.RenderModifier;
 import ui.SceneGestures;
 import ui.WorldCanvas;
-import world.Continent;
+import world.*;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import world.Mountain;
-import world.Watershed;
-import world.World;
 
 /**
  * Created by homosapien97 on 4/1/17.
  */
 public class Main extends Application {
     public void start(Stage stage) {
-        Random seeder = new Random();
-        long seed = seeder.nextLong();
-//        long seed = 8348903713678313067l;
+//        Random seeder = new Random();
+//        long seed = seeder.nextLong();
+        long seed = -7686109781550864508l;
         //bad seeds: 5760597914071523077l
         //good seeds: 5107874807822077303l
         //              3644379409043933151l
+        //              -7686109781550864508l
         Random rand = new Random(seed);
         System.out.println("Seed: " + seed);
-        World world = new World(1, 5, 1, rand);
+        World world = new World(1, 8, rand);
 
         ArrayList<RenderModifier> renderOrder = new ArrayList<>();
         renderOrder.add(new RenderModifier(Continent.class) {
@@ -47,10 +44,15 @@ public class Main extends Application {
             @Override
             public void changeRenderSettings(Shape s) {
                 Random cr = new Random();
-                s.setFill(new Color(cr.nextDouble(), cr.nextDouble(), cr.nextDouble(), 0.8));
+//                s.setFill(new Color(cr.nextDouble(), cr.nextDouble(), cr.nextDouble(), 0.8));
+//                s.setFill(Color.TRANSPARENT);
+                Color stroke = new Color(cr.nextDouble(), cr.nextDouble(), cr.nextDouble(), 0.8);
+                Color fill = new Color(stroke.getRed(), stroke.getGreen(), stroke.getBlue(), 0.5);
+                s.setStroke(stroke);
+                s.setFill(fill);
             }
         });
-        renderOrder.add(new RenderModifier(Mountain.class) {
+        renderOrder.add(new RenderModifier(MountainRange.class) {
             @Override
             public void changeRenderSettings(Shape s) {
                 s.setFill(Color.RED);
@@ -64,16 +66,6 @@ public class Main extends Application {
 //        }
         for(Shape s : world.watersheds()) {
             Watershed w = (Watershed) s;
-////            for(Polygon p : w.generatedPolygons){
-//////                Random cr = new Random();
-////                p.setFill(new Color(0.5, 0.9, 0.5, 0.2));
-////            }
-////            canvas.getChildren().addAll(((Watershed) s).generatedPolygons);
-////            for(Circle c : w.circles) {
-////                canvas.getChildren().add(c);
-////            }
-////            canvas.getChildren().addAll(w.unions);
-            System.out.println("Adding circle at " + w.endPoint.getX() + ", " + w.endPoint.getY());
             Circle end = new Circle(w.endPoint.getX(), w.endPoint.getY(), 50.0);
             end.setFill(w.getFill());
             canvas.getChildren().add(end);

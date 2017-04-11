@@ -39,31 +39,6 @@ public class PolygonUtils {
         return ret;
     }
 
-    public static Path multiUnion(Polygon a, Polygon b) {
-        a.setFill(Color.BLACK);
-        b.setFill(Color.BLACK);
-        if(a == null || a.getPoints().size() == 0) {
-            if(b == null || b.getPoints().size() == 0) {
-                return null;
-            } else {
-                return (Path) Polygon.union(new Polygon(), b);
-            }
-        } else {
-            if(b == null || b.getPoints().size() == 0) {
-//                Polygon ret = new Polygon();
-//                ret.getPoints().addAll(a.getPoints());
-//                return ret;
-                return (Path) Polygon.union(new Polygon(), a);
-            } else {
-                try {
-                    return (Path) (Polygon.union(a, b));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Polygon union has 0 points");
-                    return null;
-                }
-            }
-        }
-    }
 
     public static Polygon copy(Polygon p) {
         if(p == null) return null;
@@ -205,63 +180,6 @@ public class PolygonUtils {
         return null;
     }
 
-    public static Polygon intersection(Shape a, Shape b) {
-        a.setFill(Color.BLACK);
-        b.setFill(Color.BLACK);
-        if(a == null) {
-            if(b == null) {
-                return null;
-            } else {
-                if(b instanceof Polygon) {
-                    return (Polygon) b;
-                } else {
-                    return polygon(b);
-                }
-            }
-        } else if (b == null) {
-            if(a instanceof Polygon) {
-                return (Polygon) a;
-            } else {
-                return polygon(a);
-            }
-        } else {
-            try {
-                Path intersectionPath = (Path) (Polygon.intersect(a, b));
-                Polygon ret = new Polygon();
-                Polygon current = new Polygon();
-                int intersections = 0;
-                for (PathElement pe : intersectionPath.getElements()) {
-                    if (pe instanceof MoveTo) {
-                        if (intersections == 0) {
-                            intersections++;
-                            MoveTo mt = (MoveTo) pe;
-                            current.getPoints().addAll(mt.getX(), mt.getY());
-                        } else {
-                            if(current.getPoints().size() > ret.getPoints().size()) {
-                                ret = current;
-                            }
-                            current = new Polygon();
-                            intersections++;
-                            MoveTo mt = (MoveTo) pe;
-                            current.getPoints().addAll(mt.getX(), mt.getY());
-                        }
-                    } else if (pe instanceof LineTo) {
-                        LineTo lt = (LineTo) pe;
-                        current.getPoints().addAll(lt.getX(), lt.getY());
-                    } else if (pe instanceof ClosePath) {
-                        if(current.getPoints().size() > ret.getPoints().size()) {
-                            ret = current;
-                        }
-                    }
-                }
-                return ret;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Polygon intersection has 0 points");
-                return null;
-            }
-        }
-    }
-
     public static Polygon intersection(Polygon a, Polygon b) {
         a.setFill(Color.BLACK);
         b.setFill(Color.BLACK);
@@ -318,30 +236,6 @@ public class PolygonUtils {
             }
         }
     }
-
-//    public static Polygon subtract(Shape a, Shape b) {
-//        Path subtractionPath = (Path) (Polygon.subtract(a, b));
-//        Polygon ret = new Polygon();
-//        boolean split = false;
-//        for(PathElement pe : subtractionPath.getElements()) {
-//            if(pe instanceof MoveTo) {
-//                if(split) {
-//                    break;
-//                } else {
-//                    split = true;
-//                    MoveTo mt = (MoveTo) pe;
-//                    ret.getPoints().addAll(mt.getX(), mt.getY());
-//                }
-//            } else if(pe instanceof  LineTo) {
-//                LineTo lt = (LineTo) pe;
-//                ret.getPoints().addAll(lt.getX(), lt.getY());
-//            }
-//        }
-//        if (ret.getPoints().size() == 0) {
-//            return null;
-//        }
-//        return ret;
-//    }
 
     public static Polygon subtract(Polygon a, Polygon b) {
         Path subtractionPath = (Path) (Polygon.subtract(a, b));
@@ -427,26 +321,4 @@ public class PolygonUtils {
         Point2D pt = container.parentToLocal(x, y);
         return container.contains(pt);
     }
-
-//    public static boolean contains(Shape container, double x, double y) {
-//        System.out.println("using shape contains");
-//        Polygon rect = new Polygon();
-//        rect.getPoints().addAll(
-//                x - 1.0 / 512.0, y - 1.0 / 512.0,
-//                x + 1.0 / 512.0, y - 1.0 / 512.0,
-//                x + 1.0 / 512.0, y + 1.0 / 512.0,
-//                x - 1.0 / 512.0, y + 1.0 / 512.0
-//        );
-//        try {
-//            Path subt = (Path) Shape.subtract(rect, container);
-//            for(PathElement pe : subt.getElements()) {
-//                if(pe instanceof LineTo) {
-//                    return false;
-//                }
-//            }
-//        } catch (Exception e){
-//            return false;
-//        }
-//        return true;
-//    }
 }

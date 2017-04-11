@@ -132,7 +132,7 @@ public class Test extends Application {
         long seed = seeder.nextLong();
         Random rand = new Random(seed);
         System.out.println("Seed: " + seed);
-        World world = new World(1, 2, 1, rand);
+        World world = new World(1, 2, rand);
 
         ArrayList<RenderModifier> renderOrder = new ArrayList<>();
         renderOrder.add(new RenderModifier(Continent.class) {

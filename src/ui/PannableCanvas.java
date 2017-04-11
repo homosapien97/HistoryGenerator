@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -13,17 +14,18 @@ import javafx.scene.paint.Color;
  */
 public class PannableCanvas extends Pane {
 
-    DoubleProperty myScale = new SimpleDoubleProperty(1.0);
+//    DoubleProperty myScale = new SimpleDoubleProperty(1.0);
 
     Bounds bounds;
 
     public PannableCanvas() {
 //        setPrefSize(600, 600);
 //        setStyle("-fx-background-color: lightgrey; -fx-border-color: blue;");
-
+        setStyle("-fx-stroke-width: 0");
         // add scale transform
-        scaleXProperty().bind(myScale);
-        scaleYProperty().bind(myScale);
+//        scaleXProperty().bind(myScale);
+//        scaleYProperty().bind(myScale);
+        this.setScale(1.0);
         bounds = super.getBoundsInParent();
     }
 
@@ -59,11 +61,13 @@ public class PannableCanvas extends Pane {
     }
 
     public double getScale() {
-        return myScale.get();
+        return getScaleX();
     }
 
     public void setScale( double scale) {
-        myScale.set(scale);
+//        myScale.set(scale);
+        setScaleX(scale);
+        setScaleY(scale);
     }
 
     public void setPivot( double x, double y) {

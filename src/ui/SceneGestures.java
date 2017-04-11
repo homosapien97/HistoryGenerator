@@ -3,9 +3,12 @@ package ui;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.transform.Affine;
+import javafx.scene.transform.Scale;
 
 /**
  * Listeners for making the scene's canvas draggable and zoomable
@@ -75,6 +78,7 @@ public class SceneGestures {
      */
     private EventHandler<ScrollEvent> onScrollEventHandler = new EventHandler<ScrollEvent>() {
 
+        /*
         @Override
         public void handle(ScrollEvent event) {
             double scale = canvas.getScale(); // currently we only use Y, same value is used for X
@@ -82,21 +86,75 @@ public class SceneGestures {
 
             scale *= Math.sqrt(Math.pow(1.01, event.getDeltaY()));
 
-            if (scale <= MIN_SCALE) {
-                scale = MIN_SCALE;
-            } else if (scale >= MAX_SCALE) {
-                scale = MAX_SCALE;
+//            if (scale <= MIN_SCALE) {
+//                scale = MIN_SCALE;
+//            } else if (scale >= MAX_SCALE) {
+//                scale = MAX_SCALE;
+//            }
+
+            double f = (scale / oldScale) - 1.0;
+
+            double dx = (event.getSceneX() - (canvas.getBoundsInParent().getWidth()/2.0 + canvas.getBoundsInParent().getMinX()));
+            double dy = (event.getSceneY() - (canvas.getBoundsInParent().getHeight()/2.0 + canvas.getBoundsInParent().getMinY()));
+//
+            canvas.setPivot(f*dx, f*dy);
+//            canvas.setScale(scale);
+            canvas.getTransforms().add(new Scale(scale, scale));
+        }
+        */
+        @Override
+        public void handle(ScrollEvent event) {
+
+            double scale = 1.01;
+
+            if(event.getDeltaY() < 0) {
+                scale = 1.0 / scale;
+            } else {
+                scale = 1.0 * scale;
             }
 
-            double f = (scale / oldScale)-1;
+//            double scale = canvas.getScale(); // currently we only use Y, same value is used for X
+//            double oldScale = scale;
+//
+//            if (event.getDeltaY() < 0)
+//                scale /= delta;
+//            else
+//                scale *= delta;
+//
+//            scale = clamp( scale, MIN_SCALE, MAX_SCALE);
+//
+//            double f = (scale / oldScale)-1.0;
+//
+//            double dx = (event.getSceneX() - (canvas.getBoundsInParent().getWidth()/2.0 + canvas.getBoundsInParent().getMinX()));
+//            double dy = (event.getSceneY() - (canvas.getBoundsInParent().getHeight()/2.0 + canvas.getBoundsInParent().getMinY()));
+//
+//            canvas.setScale(scale);
+//
+//            // note: pivot value must be untransformed, i. e. without scaling
+//            canvas.setPivot(f*dx, f*dy);
+//
+//            event.consume();
 
-            double dx = (event.getSceneX() - (canvas.getBoundsInParent().getWidth()/2 + canvas.getBoundsInParent().getMinX()));
-            double dy = (event.getSceneY() - (canvas.getBoundsInParent().getHeight()/2 + canvas.getBoundsInParent().getMinY()));
+            Bounds canvasBounds = canvas.getBoundsInLocal();
+            double centerX = canvasBounds.getWidth() / 2.0 + canvasBounds.getMinX();
+            double centerY = canvasBounds.getHeight() / 2.0 + canvasBounds.getMinY();
+            Point2D localClick = canvas.sceneToLocal(event.getSceneX(), event.getSceneY());
 
-            canvas.setPivot(f*dx, f*dy);
-            canvas.setScale(scale);
+            double originalDX = localClick.getX() - centerX;
+            double originalDY = localClick.getY() - centerY;
+            double ERROR = 1.0 / canvas.getScale();
+            originalDX /= ERROR;
+            originalDY /= ERROR;
+
+            double dx = originalDX - scale * originalDX;
+            double dy = originalDY - scale * originalDY;
+
+            canvas.setScale(canvas.getScaleX() * scale);
+            canvas.setTranslateX(canvas.getTranslateX() + dx);
+            canvas.setTranslateY(canvas.getTranslateY() + dy);
+//            System.out.println("scale, dx : " + canvas.getScale() + ", " + dx);
+            event.consume();
         }
-
     };
 
 

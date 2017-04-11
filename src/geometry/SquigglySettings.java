@@ -9,9 +9,11 @@ public class SquigglySettings {
     public final Polygon container;
     public final double segmentLength;
     public final double curviness;
-    public SquigglySettings(Polygon container, double segmentLength, double curviness) {
+    public final boolean shorter;
+    public SquigglySettings(Polygon container, double segmentLength, double curviness, boolean shorter) {
         this.container = container;
         this.segmentLength = segmentLength;
         this.curviness = curviness;
+        this.shorter = shorter;
     }
 }

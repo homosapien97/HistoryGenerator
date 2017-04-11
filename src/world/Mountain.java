@@ -118,8 +118,9 @@ public class Mountain extends Polygon {
             setSelfToPolygon(intersectionPolygon);
             return true;
         }
-        Random cr = new Random();
-        intersectionPolygon.setFill(new Color(cr.nextDouble(), cr.nextDouble(), cr.nextDouble(), 0.5));
+//        Random cr = new Random();
+//        intersectionPolygon.setFill(new Color(cr.nextDouble(), cr.nextDouble(), cr.nextDouble(), 0.5));
+        intersectionPolygon.setFill(Color.BLACK);
         failures.add(intersectionPolygon);
         return false;
     }

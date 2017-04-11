@@ -2,6 +2,8 @@ package geometry;
 
 import javafx.geometry.Point2D;
 
+import java.util.List;
+
 /**
  * Created by homosapien97 on 3/11/17.
  */
@@ -68,5 +70,19 @@ public class PointUtils {
 
     public static boolean crosses(LineSegment a, LineSegment b) {
         return crosses(a.getA(), a.getB(), b.getA(), b.getB());
+    }
+
+    public static Point2D closest(Point2D p, List<Point2D> points) {
+        Point2D ret = points.get(0);
+        double shortestDistance = 0.0;
+        double currentDistance;
+        for(Point2D point : points) {
+            currentDistance = p.distance(point);
+            if(currentDistance < shortestDistance) {
+                ret = point;
+                shortestDistance = currentDistance;
+            }
+        }
+        return ret;
     }
 }

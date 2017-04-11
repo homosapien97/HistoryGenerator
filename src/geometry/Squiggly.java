@@ -2,12 +2,9 @@ package geometry; /**
  * Created by homosapien97 on 3/11/17.
  */
 
-import Utilities.Dependable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.*;
-import world.Continent;
 
 import java.util.*;
 
@@ -20,14 +17,14 @@ public class Squiggly extends LinkedList<Point2D> {
     public final double curivness;
 
     public Squiggly(SquigglySettings squigglySettings, Random rand) {
-        this(squigglySettings.container, squigglySettings.segmentLength, squigglySettings.curviness, rand);
+        this(squigglySettings.container, squigglySettings.segmentLength, squigglySettings.curviness, squigglySettings.shorter, rand);
     }
 
-    public Squiggly(HashSet<Polygon> containers, double segmentLength, double curviness, Random rand) {
-        this(PolygonUtils.firstNonNull(containers), segmentLength, curviness, rand);
+    public Squiggly(HashSet<Polygon> containers, double segmentLength, double curviness, boolean shorter, Random rand) {
+        this(PolygonUtils.firstNonNull(containers), segmentLength, curviness, shorter, rand);
     }
 
-    public Squiggly(Polygon container, double segmentLength, double curviness, Random rand) {
+    public Squiggly(Polygon container, double segmentLength, double curviness, boolean shorter, Random rand) {
         super();
         System.out.println("Generating squiggly with sidelength " + segmentLength);
         if(container == null) {
@@ -48,7 +45,11 @@ public class Squiggly extends LinkedList<Point2D> {
         this.curivness = curviness;
         //add points until you cross the container. do not add points that cross self.
         this.add(getStart());
-        this.add(getSecond());
+        if(shorter) {
+            this.add(getShorterSecond());
+        } else {
+            this.add(getRandomSecond());
+        }
         if(!contained(this.getLast().getX(), this.getLast().getY())) {
             System.out.println("Only 2 points");
         } else {
@@ -152,7 +153,14 @@ public class Squiggly extends LinkedList<Point2D> {
         return new Point2D(x, y);
     }
 
-    private Point2D getSecond() {
+    private Point2D getRandomSecond() {
+        double fx = this.getFirst().getX();
+        double fy = this.getFirst().getY();
+        double theta = rand.nextDouble() * Math.PI * 2;
+        return new Point2D(fx + segmentLength * Math.cos(theta), fy + segmentLength * Math.sin(theta));
+    }
+
+    private Point2D getShorterSecond() {
         System.out.print("Generating second point");
         double fx = this.getFirst().getX();
         double fy = this.getFirst().getY();
