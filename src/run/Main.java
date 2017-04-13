@@ -1,6 +1,7 @@
 package run;
 
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -26,12 +27,12 @@ public class Main extends Application {
 //        long seed = seeder.nextLong();
         long seed = -7686109781550864508l;
         //bad seeds: 5760597914071523077l
-        //good seeds: 5107874807822077303l
+        //good seeds:   5107874807822077303l
         //              3644379409043933151l
         //              -7686109781550864508l
         Random rand = new Random(seed);
         System.out.println("Seed: " + seed);
-        World world = new World(1, 8, rand);
+        World world = new World(1, 8, 4, rand);
 
         ArrayList<RenderModifier> renderOrder = new ArrayList<>();
         renderOrder.add(new RenderModifier(Continent.class) {
@@ -58,20 +59,28 @@ public class Main extends Application {
                 s.setFill(Color.RED);
             }
         });
+        renderOrder.add(new RenderModifier(City.class) {
+            @Override
+            public void changeRenderSettings(Shape s) {
+                s.setFill(Color.WHITE);
+            }
+        });
 
         WorldCanvas canvas = new WorldCanvas(world, renderOrder);
-
+        Group root = new Group();
+        root.getChildren().add(canvas);
 //        for(Shape s : world.mountains()) {
 //            canvas.getChildren().addAll(((Mountain) s).failures);
 //        }
-        for(Shape s : world.watersheds()) {
-            Watershed w = (Watershed) s;
-            Circle end = new Circle(w.endPoint.getX(), w.endPoint.getY(), 50.0);
-            end.setFill(w.getFill());
-            canvas.getChildren().add(end);
-        }
+//        for(Shape s : world.watersheds()) {
+//            Watershed w = (Watershed) s;
+//            Circle end = new Circle(w.endPoint.getX(), w.endPoint.getY(), 50.0);
+//            end.setFill(w.getFill());
+//            canvas.getChildren().add(end);
+//        }
 
-        Scene scene = new Scene(canvas, 1024, 768);
+        Scene scene = new Scene(root, 1024, 768);
+
         scene.setFill(Color.LIGHTBLUE);
 
         SceneGestures sceneGestures = new SceneGestures(canvas);

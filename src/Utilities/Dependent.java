@@ -1,11 +1,12 @@
 package Utilities;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by homosapien97 on 4/7/17.
  */
 public interface Dependent {
-    List<Object> dependencies();
-    void update();
+    Set<Dependable> dependencies();
+    void update(Dependable updater, Update update);
 }

@@ -1,5 +1,8 @@
 package world;
 
+import Utilities.Dependable;
+import Utilities.Dependent;
+import Utilities.Update;
 import geometry.*;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -14,30 +17,46 @@ import java.util.Random;
 /**
  * Created by homosapien97 on 4/8/17.
  */
-public class Watershed extends Polygon {
-//    public final HashSet<Polygon> generatedPolygons = new HashSet<>();
-//    public final HashSet<Circle> circles = new HashSet<>();
-//    public final HashSet<Polygon> unions = new HashSet<>();
+public class Watershed extends Polygon implements Dependable {
     public Point2D endPoint;
+    public Continent continent;
+    public HashSet<City> cities = new HashSet<>();
+    public Random rand;
+    public double area;
+    private HashSet<Dependent> dependents = new HashSet<>();
 
-    public Watershed(Polygon polygon, Point2D endPoint) {
-        this.getPoints().addAll(polygon.getPoints());
-        this.endPoint = endPoint;
+    @Override
+    public void addDependent(Dependent dependent) {
+        dependents.add(dependent);
     }
 
-    public Watershed(HashSet<Polygon> continents, double continentScale, int continentDeformations, Random rand) {
+    @Override
+    public void updateDependents() {
+        for(Dependent dependent : dependents) {
+            dependent.update(this, new Update(Watershed.class));
+        }
+    }
+
+    public Watershed(Continent continent, Polygon polygon, Point2D endPoint, Random rand) {
+        this.continent = continent;
+        this.getPoints().addAll(polygon.getPoints());
+        this.endPoint = endPoint;
+        this.rand = rand;
+        this.area = PolygonUtils.area(this);
+    }
+
+    public Watershed(Continent continent, HashSet<Polygon> continents, double continentScale, int continentDeformations, Random rand) {
+        this.rand = rand;
+        this.continent = continent;
         boolean done = false;
         do {
-            System.out.println("Generating watershed");
             ArrayList<Polygon> polygons = new ArrayList<>();
             double minScale = Math.abs(Math.log(continentScale)) * Math.sqrt(continentScale) / 2;
-            double maxScale = Math.abs(Math.log(continentScale * (5 * rand.nextDouble() + 1))) * Math.sqrt(continentScale);
-            Squiggly squiggly = new Squiggly(continents, minScale / 2, Math.PI / 3, true, rand);
-//            squiggly.clipTail();
+//            double maxScale = Math.abs(Math.log(continentScale * (6.0 * rand.nextDouble() + 1.0))) * Math.sqrt(continentScale);
+            Squiggly squiggly = new Squiggly(continent, continents, minScale / 2, Math.PI / 3, true, rand);
+            double maxScale = minScale + Math.sqrt(Math.abs(Math.log(squiggly.length())));
             endPoint = new Point2D(squiggly.getLast().getX(), squiggly.getLast().getY());
-
             double scale = maxScale;
-            System.out.println("Generating watershed blobs");
             Polygon last;
             int j = 0;
             for (Iterator<Point2D> iterator = squiggly.iterator(); iterator.hasNext(); ) {
@@ -48,18 +67,14 @@ public class Watershed extends Polygon {
                 scale = Math.sqrt(Math.sqrt(minScale)) + 1.0 / (j + 1.0 / (Math.sqrt(Math.sqrt(maxScale)) - Math.sqrt(Math.sqrt(minScale))));
                 scale = scale * scale * scale * scale;
             }
-            System.out.println("Generating watershed union");
             Polygon blobUnion = new Polygon();
             for (int i = 0; i < polygons.size(); i++) {
-//                System.out.println(i);
                 Polygon safeUnion = PolygonUtils.nullSafeUnion(blobUnion, polygons.get(i));
                 if (safeUnion == null) {
-                    System.out.println("One of the watershed unions was null");
                 } else {
                     blobUnion = safeUnion;
                 }
             }
-            System.out.println("Generating watershed intersection");
             try {
                 Polygon safeUnion = PolygonUtils.intersection(blobUnion, squiggly.container);
                 if (safeUnion != null && safeUnion.getPoints().size() != 0) {
@@ -67,20 +82,27 @@ public class Watershed extends Polygon {
                     this.getPoints().addAll(blobUnion.getPoints());
                     done = true;
                 } else {
-                    System.out.println("Watershed intersection failure--restarting");
                 }
             } catch (Exception e) {
-                System.out.println("Watershed intersection failure--restarting");
             }
         } while(!done);
+        this.area = PolygonUtils.area(this);
     }
 
-    public boolean setPolygon(Polygon polygon) {
-        this.getPoints().clear();
-        this.setTranslateX(0.0);
-        this.setTranslateY(0.0);
-        this.setRotate(0.0);
-        this.getPoints().addAll(polygon.getPoints());
-        return true;
+    public void addCity() {
+        boolean merge = false;
+        City city = new City(this, rand);
+        for (City extant : cities) {
+            City union = City.merge(city, extant);
+            if (union != null) {
+                cities.remove(extant);
+                cities.add(union);
+                merge = true;
+                break;
+            }
+        }
+        if (!merge) {
+            cities.add(city);
+        }
     }
 }

@@ -27,7 +27,7 @@ public class Continent extends Polygon {
         this.deformations = deformations;
         this.rand = rand;
         this.getPoints().addAll((new Blob(startPolygon, scale, jaggedness, deformations, rand)).getDoubleList());
-        System.out.println("Blob has been added to continent");
+//        System.out.println("Blob has been added to continent");
 //        double tx = this.getLayoutBounds().getMinX() + this.getLayoutBounds().getWidth() / 2;
 //        double ty = this.getLayoutBounds().getMinY() + this.getLayoutBounds().getHeight() / 2;
 //        this.setTranslateX(tx);

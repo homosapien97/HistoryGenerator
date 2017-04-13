@@ -2,10 +2,10 @@ package world;
 
 import Utilities.Dependable;
 import Utilities.Dependent;
+import Utilities.Transformations;
+import Utilities.Update;
 import geometry.BlobSettings;
-import geometry.PointUtils;
 import geometry.PolygonUtils;
-import javafx.geometry.Bounds;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 
@@ -14,39 +14,81 @@ import java.util.*;
 /**
  * Created by homosapien97 on 4/7/17.
  */
-public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
+public class World extends HashMap<Class, HashSet<Shape>> implements Dependable, Dependent {
     int modificationCount = 0;
     LinkedList<Dependent> dependents = new LinkedList<>();
-    private static BlobSettings defaultContinentBlobSettings = new BlobSettings(8, 1024.0, 2.7, 11);
-//    private static BlobSettings defaultMountainRangeBlobSettings = new BlobSettings(2, 228.0, 2.0, 8);
+    HashSet<Dependable> dependencies = new HashSet<>();
 
-    public World(int numContinents, int numMountainsPerContinent, Random rand) {
+    @Override
+    public Set<Dependable> dependencies() {
+        return dependencies;
+    }
+
+    @Override
+    public void update(Dependable updater, Update update) {
+        if(Update.class.equals(Watershed.class)) {
+            Watershed updaterWatershed = (Watershed) updater;
+            HashSet<Shape> cities = this.get(City.class);
+            for (Shape shape : cities) {
+                City city = (City) shape;
+                if (city.watershed == updater && !updaterWatershed.cities.contains(city)) {
+                    cities.remove(city);
+                }
+            }
+            for (City city : updaterWatershed.cities) {
+                cities.add(city);
+            }
+        }
+    }
+
+    private static BlobSettings defaultContinentBlobSettings = new BlobSettings(8, 1024.0, 2.7, 11);
+
+    public World(int numContinents, int numMountainsPerContinent, int numCitiesPerWatershed, Random rand) {
         super();
         for(int i = 0; i < numContinents; i++) {
             //TODO make this actually work nicely with more than 1 continent
+            System.out.println("Making continent");
             Continent continent = new Continent(defaultContinentBlobSettings, rand);
 
             //Add watersheds
+            System.out.println("Adding watersheds");
             HashSet<Polygon> continentCopy = new HashSet<>();
             continentCopy.add(PolygonUtils.copy(continent));
             HashSet<Polygon> safeCopy;
             do {
-                Watershed w = new Watershed(continentCopy, continent.scale, continent.deformations, rand);
+                Watershed w = new Watershed(continent, continentCopy, continent.scale, continent.deformations, rand);
                 try {
                     safeCopy = PolygonUtils.subtract(continentCopy, w);
-                    System.out.println("safecopy size " + safeCopy.size());
+//                    System.out.println("safecopy size " + safeCopy.size());
                     continentCopy = safeCopy;
                 } catch (Exception e) {
-                    System.out.println("watershed subtraction fail");
+//                    System.out.println("watershed subtraction fail");
                 }
                 add(w);
+                dependencies.add(w);
+                w.addDependent(this);
             } while(continentCopy.size() != 0);
 
+            System.out.println("Adding cities");
+            if(!this.containsKey(City.class)) {
+                this.put(City.class, new HashSet<>());
+            }
+            for(Shape s : super.get(Watershed.class)) {
+                Watershed watershed = (Watershed) s;
+                System.out.println("Adding " + Math.floor(watershed.area / 27000.0) + " cities");
+                for(int j = 0; j < Math.floor(watershed.area / 27000.0); j++) {
+//                    add(new City(watershed, rand));
+                    watershed.addCity();
+                }
+                this.get(City.class).addAll(watershed.cities);
+            }
+
             //Add mountain ranges
+            System.out.println("Adding mountains");
             continentCopy = new HashSet<>();
             continentCopy.add(PolygonUtils.copy(continent));
             for(int j = 0; j < numMountainsPerContinent; j++) {
-                add(new MountainRange(continentCopy, continent.scale, continent.deformations, rand));
+                add(new MountainRange(continent, continentCopy, continent.scale, continent.deformations, rand));
             }
 
             add(continent);
@@ -61,7 +103,7 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
     @Override
     public void updateDependents() {
         for(Dependent dependent : dependents) {
-            dependent.update();
+            dependent.update(this, new Update(World.class));
         }
     }
 
@@ -85,30 +127,8 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
                 al.add(s);
                 this.put(c, al);
             }
-        } else if (s instanceof Mountain) {
-            c = Mountain.class;
-            if (containsKey(c)) {
-                Mountain mountainRange = (Mountain) s;
-                HashSet<Shape> mountains = this.get(c);
-                Iterator<Shape> iterator = mountains.iterator();
-                while (iterator.hasNext()) {
-//                    Mountain element = (Mountain) iterator.next();
-//                    if(mountainRange.union(element)) {
-//                        iterator.remove();
-//                    }
-                    Polygon union = PolygonUtils.union(mountainRange, (Mountain) (iterator.next()));
-                    if (union != null) {
-                        iterator.remove();
-                    }
-                }
-                mountains.add(mountainRange);
-            } else {
-                HashSet<Shape> al = new HashSet<>();
-                al.add(s);
-                this.put(c, al);
-            }
         } else if (s instanceof Watershed) {
-            System.out.println("Adding a watershed");
+//            System.out.println("Adding a watershed");
             c = Watershed.class;
             if (containsKey(c) && get(c) != null) {
                 Watershed watershed = (Watershed) s;
@@ -117,61 +137,46 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
                 for (Shape shape : watersheds) {
                     Watershed extant = (Watershed) shape;
                     if (PolygonUtils.contains(extant, watershed.endPoint.getX(), watershed.endPoint.getY())) {
-                        System.out.println("New watershed's endpoint is already in an extant watershed");
                         if (PolygonUtils.contains(watershed, extant.endPoint.getX(), extant.endPoint.getY())) {
-                            System.out.println("Extant watershed's endpoint is also in new watershed!");
                         }
                         Polygon safeUnion = PolygonUtils.union(watershed, extant);
                         if (safeUnion != null && safeUnion.getPoints().size() != 0) {
-                            System.out.println("Union successful");
+//                            System.out.println("Union successful");
                             toRemove = extant;
-                            Watershed newWatershed = new Watershed(safeUnion, extant.endPoint);
+                            Watershed newWatershed = new Watershed(extant.continent, safeUnion, extant.endPoint, extant.rand);
                             watersheds.add(newWatershed);
                             break;
                         }
                     }
                 }
                 if (toRemove != null) {
-                    System.out.println("removing old watershed");
+//                    System.out.println("removing old watershed");
                     watersheds.remove(toRemove);
                 } else {
                     watersheds.add(watershed);
                 }
             } else {
-                System.out.println("First watershed!");
+//                System.out.println("First watershed!");
                 HashSet<Shape> al = new HashSet<>();
                 al.add(s);
                 this.put(c, al);
             }
         } else if(s instanceof MountainRange) {
-            System.out.println("Adding a mountain range");
             c = MountainRange.class;
             if (containsKey(c)) {
                 MountainRange mountainRange = (MountainRange) s;
                 HashSet<Shape> mountainRanges = this.get(c);
-//                Iterator<Shape> iterator = mountainRanges.iterator();
-//                boolean cross = false;
-//                while (iterator.hasNext()) {
-//                    MountainRange next = (MountainRange) iterator.next();
-//                    Polygon intersection = PolygonUtils.intersection(mountainRange, next);
-//                    Polygon union = PolygonUtils.union(mountainRange, next);
-//                    if ((intersection != null || intersection.getPoints().size() != 0)
-//                            &&
-//                            (union != null || union.getPoints().size() != 0)) {
-//                        System.out.println("Mountain range crossed other mountain range");
-////                        iterator.remove();
-////                        mountainRange.setPolygon(union);
-//                        next.setPolygon(union);
-//                        cross = true;
-//                        break;
-//                    }
-//                }
-//                if(cross) {
-//
-//                }
                 mountainRanges.add(mountainRange);
             } else {
-                System.out.println("First mountain range");
+                HashSet<Shape> al = new HashSet<>();
+                al.add(s);
+                this.put(c, al);
+            }
+        } else if(s instanceof City) {
+            c = City.class;
+            if(containsKey(c)) {
+                this.get(c).add(s);
+            } else {
                 HashSet<Shape> al = new HashSet<>();
                 al.add(s);
                 this.put(c, al);
@@ -202,9 +207,6 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
     public Set<Shape> continents() {
         return this.get(Continent.class);
     }
-    public Set<Shape> mountains() {
-        return this.get(Mountain.class);
-    }
     public Set<Shape> watersheds() {
         return this.get(Watershed.class);
     }
@@ -215,10 +217,6 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable{
     public Set<Shape> unmodifiableContinents() {
         modificationCount--;
         return Collections.unmodifiableSet(super.get(Continent.class));
-    }
-    public Set<Shape> unmodifiableMountains() {
-        modificationCount--;
-        return Collections.unmodifiableSet(super.get(Mountain.class));
     }
     public Set<Shape> unmodifiableWatersheds() {
         modificationCount--;

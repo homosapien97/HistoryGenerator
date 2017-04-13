@@ -11,7 +11,6 @@ import ui.RenderModifier;
 import ui.SceneGestures;
 import ui.WorldCanvas;
 import world.Continent;
-import world.Mountain;
 import world.World;
 
 import java.util.ArrayList;
@@ -132,19 +131,13 @@ public class Test extends Application {
         long seed = seeder.nextLong();
         Random rand = new Random(seed);
         System.out.println("Seed: " + seed);
-        World world = new World(1, 2, rand);
+        World world = new World(1, 2, 2, rand);
 
         ArrayList<RenderModifier> renderOrder = new ArrayList<>();
         renderOrder.add(new RenderModifier(Continent.class) {
             @Override
             public void changeRenderSettings(Shape s) {
                 s.setFill(Color.BROWN);
-            }
-        });
-        renderOrder.add(new RenderModifier(Mountain.class) {
-            @Override
-            public void changeRenderSettings(Shape s) {
-                s.setFill(Color.WHITE);
             }
         });
 

@@ -12,6 +12,67 @@ import java.util.*;
  * Created by homosapien97 on 4/8/17.
  */
 public class PolygonUtils {
+
+    public static boolean containsEveryVertex(Polygon container, Polygon contained) {
+        for(Iterator<Double> iter = contained.getPoints().iterator(); iter.hasNext();) {
+            double x = iter.next();
+            double y = iter.next();
+            if(!contains(container, x, y)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean containsAVertex(Polygon container, Polygon contained) {
+        for(Iterator<Double> iter = contained.getPoints().iterator(); iter.hasNext();) {
+            double x = iter.next();
+            double y = iter.next();
+            if(contains(container, x, y)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static double area(Polygon polygon) {
+        if(polygon == null || polygon.getPoints().size() < 4) return 0.0;
+        Iterator<Double> iterator = polygon.getPoints().iterator();
+        double x1 = iterator.next();
+        double y1 = iterator.next();
+        double x2 = 0.0;
+        double y2 = 0.0;
+        double area = 0.0;
+        while(iterator.hasNext()) {
+            x2 = iterator.next();
+            y2 = iterator.next();
+            area += (x1 * y2 - y1 * x2) / 2.0;
+            x1 = x2;
+            y1 = y2;
+        }
+        iterator = polygon.getPoints().iterator();
+        x1 = iterator.next();
+        y1 = iterator.next();
+        area += (x1 * y2 - y1 * x2) / 2.0;
+        area = Math.abs(area);
+        return area;
+    }
+
+    public static Point2D approxRandomInteriorPoint(Polygon container, double min, Random rand) {
+        Bounds containerParentBounds = container.getBoundsInParent();
+        if(containerParentBounds.getWidth() < min && containerParentBounds.getHeight() < min) {
+            return new Point2D (containerParentBounds.getMinX() + containerParentBounds.getWidth() / 2,
+                    containerParentBounds.getMinY() + containerParentBounds.getHeight() / 2);
+        }
+        double x;
+        double y;
+        do {
+            x = containerParentBounds.getMinX() + rand.nextDouble() * containerParentBounds.getWidth();
+            y = containerParentBounds.getMinY() + rand.nextDouble() * containerParentBounds.getHeight();
+        } while(!PolygonUtils.contains(container, x, y));
+        return new Point2D(x, y);
+    }
+
     public static Point2D center(Polygon polygon) {
         List<Double> points = polygon.getPoints();
         double x = 0.0;
@@ -60,7 +121,7 @@ public class PolygonUtils {
         b = copy(b);
         if(a == null || a.getPoints().size() == 0) {
             if(b == null || b.getPoints().size() == 0) {
-                System.out.println("Both union participants were null");
+                System.out.println("Both merge participants were null");
                 return null;
             } else {
                 return copy(b);
@@ -101,7 +162,7 @@ public class PolygonUtils {
                     }
                     return ret;
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Polygon union has 0 points");
+                    System.out.println("Polygon merge has 0 points");
                     return null;
                 }
             }
@@ -112,7 +173,7 @@ public class PolygonUtils {
         a.setFill(Color.BLACK);
         b.setFill(Color.BLACK);
         if(a == null || b == null || a.getPoints().size() == 0 || b.getPoints().size() == 0) {
-            System.out.println("a union participant was null/empty");
+            System.out.println("a merge participant was null/empty");
             return null;
         } else {
             try {
@@ -146,7 +207,7 @@ public class PolygonUtils {
                 }
                 return ret;
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Polygon union has 0 points");
+                System.out.println("Polygon merge has 0 points");
                 return null;
             }
         }
@@ -238,6 +299,8 @@ public class PolygonUtils {
     }
 
     public static Polygon subtract(Polygon a, Polygon b) {
+        a.setFill(Color.BLACK);
+        b.setFill(Color.BLACK);
         Path subtractionPath = (Path) (Polygon.subtract(a, b));
         Polygon ret = new Polygon();
         boolean split = false;

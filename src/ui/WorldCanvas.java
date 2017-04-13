@@ -1,19 +1,22 @@
 package ui;
 
+import Utilities.Dependable;
 import Utilities.Dependent;
+import Utilities.Update;
 import javafx.scene.shape.Shape;
 import world.World;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
  * Created by homosapien97 on 4/7/17.
  */
-public class WorldCanvas extends PannableCanvas implements Dependent{
+public class WorldCanvas extends PannableCanvas implements Dependent {
     World world;
     List<RenderModifier> renderOrder;
-    List<Object> dependencies = new ArrayList<>(1);
+    HashSet<Dependable> dependencies = new HashSet<>();
 //    ArrayList<Shape> toRender;
     public WorldCanvas(World world, List<RenderModifier> renderOrder) {
         this.world = world;
@@ -35,11 +38,13 @@ public class WorldCanvas extends PannableCanvas implements Dependent{
         }
     }
     @Override
-    public List<Object> dependencies() {
+    public HashSet<Dependable> dependencies() {
         return dependencies;
     }
     @Override
-    public void update() {
-        refreshChildren();
+    public void update(Dependable updater, Update update) {
+        if(update.updater.equals(World.class)) {
+            refreshChildren();
+        }
     }
 }
