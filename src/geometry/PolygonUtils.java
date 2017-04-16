@@ -309,7 +309,7 @@ public class PolygonUtils {
                     }
                 }
                 return ret;
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException e) {
                 System.out.println("Polygon intersection has 0 points");
                 return null;
             }

@@ -1,5 +1,6 @@
 package run;
 
+import geometry.VoronoiCell;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -47,6 +48,12 @@ public class Main extends Application {
                 Color fill = new Color(stroke.getRed(), stroke.getGreen(), stroke.getBlue(), 0.5);
                 s.setStroke(stroke);
                 s.setFill(fill);
+            }
+        });
+        renderOrder.add(new RenderModifier(VoronoiCell.class) {
+            @Override
+            public void changeRenderSettings(Shape s) {
+                s.setFill(((VoronoiCell) s).parent.culture.getFill());
             }
         });
         renderOrder.add(new RenderModifier(MountainRange.class) {

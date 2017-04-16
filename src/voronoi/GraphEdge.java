@@ -34,4 +34,18 @@ public class GraphEdge
 
     public int site1;
     public int site2;
+
+    public int hashCode() {
+        return (site1 << 16) + (site1 >>> 16) + site2;
+    }
+
+    public boolean equals(Object o) {
+        if(o instanceof GraphEdge) {
+            if(hashCode() == o.hashCode()) {
+                GraphEdge g = (GraphEdge) o;
+                return site1 == g.site1 && site2 == g.site2;
+            }
+        }
+        return false;
+    }
 }

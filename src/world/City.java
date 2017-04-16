@@ -39,6 +39,7 @@ public class City extends Polygon implements Describable, Centralizable, Selecta
     public boolean finalizeInfluence() {
         if(culture == temporaryCulture) return false;
         culture = temporaryCulture;
+        this.setFill(culture.getFill());
         return true;
     }
 

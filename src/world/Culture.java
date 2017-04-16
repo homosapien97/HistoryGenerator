@@ -1,5 +1,8 @@
 package world;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+
 import java.util.Random;
 
 /**
@@ -50,5 +53,15 @@ public class Culture {
     @Override
     public String toString() {
         return "Culture:(" + language + ", " + religion + ", " + individualism + ")";
+    }
+
+    public Paint getFill() {
+        return new Color(clamp(language / SCALE + 1), clamp(religion / SCALE + 1), clamp(individualism / SCALE + 1), 1.0);
+    }
+
+    private double clamp(double c) {
+        if(c < 0.0) return 0.0;
+        if(c > 1.0) return 1.0;
+        return c;
     }
 }

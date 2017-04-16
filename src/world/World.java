@@ -1,5 +1,7 @@
 package world;
 
+import geometry.VoronoiCell;
+import javafx.geometry.Bounds;
 import utilities.Dependable;
 import utilities.Dependent;
 import utilities.Update;
@@ -7,6 +9,8 @@ import geometry.BlobSettings;
 import geometry.PolygonUtils;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
+import voronoi.Voronoi;
+import voronoi.VoronoiPolygonSet;
 
 import java.util.*;
 
@@ -20,6 +24,7 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable,
     HashSet<Dependable> dependencies = new HashSet<>();
     NameList cityNames;
     NameList riverNames;
+    Voronoi cityVoronoi;
 
     public void step(int num) {
         for(int i = 0; i < num; i++) {
@@ -141,7 +146,28 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable,
             System.out.println("Done with mountains");
 
             add(continent);
+
+//            ArrayList<City> cities = new ArrayList<>(this.get(City.class).size());
+//            for(Shape s : this.get(City.class)) {
+//                cities.add((City) s);
+//            }
+//            double[] xValues = new double[cities.size()];
+//            double[] yValues = new double[xValues.length];
+//            Iterator<City> citerator = cities.iterator();
+//            for(int j = 0; j < xValues.length; j++) {
+//                City city = citerator.next();
+//                xValues[j] = city.center.getX();
+//                yValues[j] = city.center.getY();
+//            }
+//            Bounds continentBounds = continent.getBoundsInParent();
+//            double minX = continentBounds.getMinX();
+//            double maxX = continentBounds.getMaxX();
+//            double minY = continentBounds.getMinY();
+//            double maxY = continentBounds.getMaxY();
+//            HashSet<Shape> vps = new VoronoiPolygonSet(xValues, yValues, minX, maxX, minY, maxY, continent, cities);
+//            this.put(VoronoiCell.class, vps);
         }
+
     }
 
     @Override
@@ -230,6 +256,8 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable,
                 al.add(s);
                 this.put(c, al);
             }
+        } else if(s instanceof VoronoiCell) {
+
         } else {
             c = Shape.class;
             if(containsKey(c)) {
@@ -253,26 +281,4 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable,
         return Collections.unmodifiableSet(super.get(o));
     }
 
-    public Set<Shape> continents() {
-        return this.get(Continent.class);
-    }
-    public Set<Shape> watersheds() {
-        return this.get(Watershed.class);
-    }
-    public Set<Shape> others() {
-        return this.get(Shape.class);
-    }
-
-    public Set<Shape> unmodifiableContinents() {
-        modificationCount--;
-        return Collections.unmodifiableSet(super.get(Continent.class));
-    }
-    public Set<Shape> unmodifiableWatersheds() {
-        modificationCount--;
-        return Collections.unmodifiableSet(super.get(Watershed.class));
-    }
-    public Set<Shape> unmodifiableOthers() {
-        modificationCount--;
-        return Collections.unmodifiableSet(super.get(Shape.class));
-    }
 }

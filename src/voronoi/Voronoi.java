@@ -79,6 +79,10 @@ public class Voronoi
      * Public methods
      ********************************************************/
 
+    public int getNumSites() {
+        return nsites;
+    }
+
     public Voronoi(double minDistanceBetweenSites)
     {
         siteidx = 0;
