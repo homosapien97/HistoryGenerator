@@ -17,12 +17,13 @@ import java.util.Random;
  */
 public class Watershed extends Polygon implements Dependable, Describable, Centralizable, Influencable, Influencer, Selectable {
     private static final double DEFAULT_GRID_SIZE = 200.0;
-    private static final double CITY_INFLUENCE_FACTOR = 1.0/32.0;
-    private static final double WATERSHED_INFLUENCE_FACTOR = 1.0/1024.0;
+    private static final double CITY_INFLUENCE_FACTOR = 1.0/256.0;
+    private static final double WATERSHED_INFLUENCE_FACTOR = 1.0/4096.0;
     private static final double INFLUENCE_RADIUS_FACTOR = 1.0;
     public Point2D endPoint;
     public Continent continent;
     public HashSet<City> cities = new HashSet<>();
+    public World world;
     public Random rand;
     public double area;
     private HashSet<Dependent> dependents = new HashSet<>();
@@ -47,6 +48,7 @@ public class Watershed extends Polygon implements Dependable, Describable, Centr
     public boolean finalizeInfluence() {
         if(culture == temporaryCulture) return false;
         culture = temporaryCulture;
+        temporaryCulture = new Culture(culture);
         return true;
     }
 
@@ -54,10 +56,14 @@ public class Watershed extends Polygon implements Dependable, Describable, Centr
     public boolean influenceBy(Influencer influencer) {
         if(influencer instanceof City) {
             City city = (City) influencer;
-            temporaryCulture.driftTo(culture, city.culture, 1 - 1 / (CITY_INFLUENCE_FACTOR * area + 1));
-        } else if(influencer instanceof Watershed) {
+            double fc = 1 - 1 / (CITY_INFLUENCE_FACTOR * city.radius * 1 / center.distance(city.center) + 1);
+            System.out.println("Watershed being influenced by city with factor " + fc);
+            temporaryCulture.driftTo(temporaryCulture, city.culture, fc);
+        } else if(influencer instanceof Watershed && this != influencer) {
             Watershed watershed = (Watershed) influencer;
-            temporaryCulture.driftTo(culture, watershed.culture, 1 - 1 / (WATERSHED_INFLUENCE_FACTOR * area * 1 / center.distance(watershed.center) + 1));
+            double fw = 1 - 1 / (WATERSHED_INFLUENCE_FACTOR * Math.sqrt(watershed.area) * 1 / center.distance(watershed.center) + 1);
+            System.out.println("Watershed being influenced by watershed with factor " + fw);
+            temporaryCulture.driftTo(temporaryCulture, watershed.culture, fw);
         }
         return true;
     }
@@ -100,7 +106,7 @@ public class Watershed extends Polygon implements Dependable, Describable, Centr
 
     @Override
     public String getDescription() {
-        return name;
+        return name + " " + culture;
     }
 
     @Override
@@ -115,8 +121,9 @@ public class Watershed extends Polygon implements Dependable, Describable, Centr
         }
     }
 
-    public Watershed(String name, Continent continent, Polygon polygon, Point2D endPoint, Random rand) {
+    public Watershed(String name, Continent continent, World world, Polygon polygon, Point2D endPoint, Random rand) {
         this.name = name;
+        this.world = world;
         this.continent = continent;
         this.getPoints().addAll(polygon.getPoints());
         this.endPoint = endPoint;
@@ -125,13 +132,14 @@ public class Watershed extends Polygon implements Dependable, Describable, Centr
         this.center = PolygonUtils.center(this);
         this.radius = PolygonUtils.maxDistance(this, center);
         this.culture = new Culture(rand);
-        temporaryCulture = culture;
+        temporaryCulture = new Culture(culture);
         sphere = new SphereOfInfluence(endPoint, INFLUENCE_RADIUS_FACTOR * Math.sqrt(this.area));
         watershedMap.add(this);
     }
 
-    public Watershed(String name, Continent continent, HashSet<Polygon> continents, double continentScale, int continentDeformations, Random rand) {
+    public Watershed(String name, Continent continent, World world, HashSet<Polygon> continents, double continentScale, int continentDeformations, Random rand) {
         this.name = name;
+        this.world = world;
         this.rand = rand;
         this.continent = continent;
         boolean done = false;
@@ -176,16 +184,16 @@ public class Watershed extends Polygon implements Dependable, Describable, Centr
         this.center = PolygonUtils.center(this);
         this.radius = PolygonUtils.maxDistance(this, center);
         this.culture = new Culture(rand);
-        temporaryCulture = culture;
+        temporaryCulture = new Culture(culture);
         sphere = new SphereOfInfluence(endPoint, INFLUENCE_RADIUS_FACTOR * Math.sqrt(this.area));
         watershedMap.add(this);
     }
 
     public void addCity(String name) {
         boolean merge = false;
-        City city = new City(name, this, rand);
+        City city = new City(name, this, world, rand);
         int i = 0;
-        System.out.println("Adding " + name);
+//        System.out.println("Adding " + name);
         for (City extant : cities) {
             System.out.println(i++);
             if(city != extant) {

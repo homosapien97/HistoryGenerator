@@ -23,6 +23,12 @@ public class WorldCanvas extends PannableCanvas implements Dependent {
         dependencies.add(world);
         refreshChildren();
     }
+    public boolean setRenderMode(List<RenderModifier> rm) {
+        if(renderOrder == rm) return false;
+        renderOrder = rm;
+        refreshChildren();
+        return true;
+    }
     private void refreshChildren() {
         this.getChildren().clear();
         for(RenderModifier rm : renderOrder) {

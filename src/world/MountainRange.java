@@ -14,6 +14,7 @@ import java.util.Random;
  * Created by homosapien97 on 4/8/17.
  */
 public class MountainRange extends Polygon {
+    public static final GridMap<Mountain> mountainMap = new GridMap<>(200.0);
     public Squiggly squiggly;
 
     public MountainRange(Polygon polygon, Squiggly squiggly) {
@@ -25,6 +26,7 @@ public class MountainRange extends Polygon {
         boolean done = false;
         do {
             ArrayList<Polygon> polygons = new ArrayList<>();
+            ArrayList<Mountain> mountains = new ArrayList<>();
             double minScale = Math.abs(Math.log(continentScale)) * Math.sqrt(continentScale) / 6;
             Squiggly squiggly = new Squiggly(continent, continents, minScale / 2, Math.PI / 3.5, false, rand);
             squiggly.removeTail(1.0/3.0);
@@ -36,6 +38,7 @@ public class MountainRange extends Polygon {
                 Point2D move = iterator.next();
                 last = new PolyBlob(new Blob(6, scale, 1.0, continentDeformations / 2, rand), move);
                 polygons.add(last);
+                mountains.add(new Mountain(last));
             }
             Polygon blobUnion = new Polygon();
             for (int i = 0; i < polygons.size(); i++) {

@@ -32,57 +32,49 @@ public class Main extends Application {
         World world = new World(new NameList(NameType.CITY), new NameList(NameType.RIVER), 1, 8, 4, rand);
 
         ArrayList<RenderModifier> renderOrder = new ArrayList<>();
-        renderOrder.add(new RenderModifier(Continent.class) {
-            @Override
-            public void changeRenderSettings(Shape s) {
-                s.setFill(Color.GRAY);
-            }
-        });
-        renderOrder.add(new RenderModifier(Watershed.class) {
-            @Override
-            public void changeRenderSettings(Shape s) {
-                Random cr = new Random();
-//                s.setFill(new Color(cr.nextDouble(), cr.nextDouble(), cr.nextDouble(), 0.8));
-//                s.setFill(Color.TRANSPARENT);
-                Color stroke = new Color(cr.nextDouble(), cr.nextDouble(), cr.nextDouble(), 0.8);
-                Color fill = new Color(stroke.getRed(), stroke.getGreen(), stroke.getBlue(), 0.5);
-                s.setStroke(stroke);
-                s.setFill(fill);
-            }
-        });
-        renderOrder.add(new RenderModifier(VoronoiCell.class) {
-            @Override
-            public void changeRenderSettings(Shape s) {
-                s.setFill(((VoronoiCell) s).parent.culture.getFill());
-            }
-        });
-        renderOrder.add(new RenderModifier(MountainRange.class) {
-            @Override
-            public void changeRenderSettings(Shape s) {
-                s.setFill(Color.RED);
-            }
-        });
-        renderOrder.add(new RenderModifier(City.class) {
-            @Override
-            public void changeRenderSettings(Shape s) {
-                s.setFill(Color.ORANGE);
-            }
-        });
+        renderOrder = RenderModifier.GENERAL;
+//        renderOrder.add(new RenderModifier(Continent.class) {
+//            @Override
+//            public void changeRenderSettings(Shape s) {
+//                s.setFill(Color.GRAY);
+//            }
+//        });
+//        renderOrder.add(new RenderModifier(Watershed.class) {
+//            @Override
+//            public void changeRenderSettings(Shape s) {
+//                Random cr = new Random();
+////                s.setFill(new Color(cr.nextDouble(), cr.nextDouble(), cr.nextDouble(), 0.8));
+////                s.setFill(Color.TRANSPARENT);
+//                Color stroke = new Color(cr.nextDouble(), cr.nextDouble(), cr.nextDouble(), 0.8);
+//                Color fill = new Color(stroke.getRed(), stroke.getGreen(), stroke.getBlue(), 0.5);
+//                s.setStroke(stroke);
+//                s.setFill(fill);
+//            }
+//        });
+////        renderOrder.add(new RenderModifier(VoronoiCell.class) {
+////            @Override
+////            public void changeRenderSettings(Shape s) {
+////                s.setFill(((VoronoiCell) s).parent.culture.getFill());
+////            }
+////        });
+//        renderOrder.add(new RenderModifier(MountainRange.class) {
+//            @Override
+//            public void changeRenderSettings(Shape s) {
+//                s.setFill(Color.RED);
+//            }
+//        });
+//        renderOrder.add(new RenderModifier(City.class) {
+//            @Override
+//            public void changeRenderSettings(Shape s) {
+//                s.setFill(Color.ORANGE);
+//            }
+//        });
 
         WorldCanvas canvas = new WorldCanvas(world, renderOrder);
-        HUD hud = new HUD(world);
+        HUD hud = new HUD(world, canvas, stage);
         Group root = new Group();
         root.getChildren().add(canvas);
         root.getChildren().add(hud);
-//        for(Shape s : world.mountains()) {
-//            canvas.getChildren().addAll(((Mountain) s).failures);
-//        }
-//        for(Shape s : world.watersheds()) {
-//            Watershed w = (Watershed) s;
-//            Circle end = new Circle(w.endPoint.getX(), w.endPoint.getY(), 50.0);
-//            end.setFill(w.getFill());
-//            canvas.getChildren().add(end);
-//        }
 
         Scene scene = new Scene(root, 1024, 768);
 
