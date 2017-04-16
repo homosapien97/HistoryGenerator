@@ -27,7 +27,7 @@ public class Squiggly extends LinkedList<Point2D> {
 
     public Squiggly(Polygon superContainer, Polygon container, double segmentLength, double curviness, boolean shorter, Random rand) {
         super();
-//        System.out.println("Generating squiggly with sidelength " + segmentLength);
+        System.out.println("Generating squiggly with sidelength " + segmentLength);
         if(container == null) {
             throw new IllegalArgumentException("Cannot generate Squiggly within null/empty polygon");
         }
@@ -43,13 +43,16 @@ public class Squiggly extends LinkedList<Point2D> {
         this.segmentLength = segmentLength;
         this.curivness = curviness;
         //add points until you cross the container. do not add points that cross self.
+        System.out.println("\tGenerating start");
         this.add(getStart());
 //        System.out.println("First squiggly point: " + this.getFirst().getX() + ", " + this.getFirst().getY());
+        System.out.println("\tGenerating second point");
         if(shorter) {
             this.add(getShorterSecond());
         } else {
             this.add(getRandomSecond());
         }
+        System.out.println("\tGenerating more points");
 //        System.out.println("Second squiggly point: " + this.get(1).getX() + ", " + this.get(1).getY());
         if(!contained(this.getLast().getX(), this.getLast().getY())) {
 //            System.out.println("Only 2 points");
@@ -159,11 +162,14 @@ public class Squiggly extends LinkedList<Point2D> {
         double x;
         double y;
         Bounds subtractBounds = subtract.getBoundsInParent();
-        do {
-            x = subtractBounds.getMinX() + rand.nextDouble() * subtractBounds.getWidth();
-            y = subtractBounds.getMinY() + rand.nextDouble() * subtractBounds.getHeight();
-//            System.out.println("Tried " + x + ", " + y);
-        } while(!PolygonUtils.contains(subtract, x, y));
+//        do {
+//            x = subtractBounds.getMinX() + rand.nextDouble() * subtractBounds.getWidth();
+//            y = subtractBounds.getMinY() + rand.nextDouble() * subtractBounds.getHeight();
+////            System.out.println("Tried " + x + ", " + y);
+//        } while(!PolygonUtils.contains(subtract, x, y));
+        Point2D temp = PolygonUtils.approxRandomInteriorPoint(subtract, 1.0, rand);
+        x = temp.getX();
+        y = temp.getY();
         double l = segmentLength / Math.sqrt((x - fx) * (x - fx) + (y - fy) * (y - fy));
         x = fx + l * (x - fx);
         y = fy + l * (y - fy);

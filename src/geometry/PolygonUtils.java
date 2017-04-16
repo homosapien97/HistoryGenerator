@@ -86,6 +86,24 @@ public class PolygonUtils {
         return new Point2D(x, y);
     }
 
+    public static double maxDistance(Polygon polygon, Point2D center) {
+        List<Double> points = polygon.getPoints();
+        double x;
+        double y;
+        double s = 0.0;
+        double c;
+        for(int i = 0; i < points.size(); i++) {
+            x = points.get(i);
+            i++;
+            y = points.get(i);
+            c = PointUtils.squareDistance(center, new Point2D(x, y));
+            if(c > s) {
+                s = c;
+            }
+        }
+        return Math.sqrt(s);
+    }
+
     public static LinkedList<Polygon> polygons(Shape s) {
         Path path = (Path) Shape.union(s, s);
         LinkedList<Polygon> ret = new LinkedList<>();

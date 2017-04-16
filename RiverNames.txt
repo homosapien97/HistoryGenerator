@@ -1,0 +1,2250 @@
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Kama
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Kama
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : Abay
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : Al Furat
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Alabama
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Albany
+note       : 
+
+scalerank  : 1
+featurecla : Lake Centerline
+name       : Albert Nile
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : Amur
+note       : 
+
+scalerank  : 2
+featurecla : Lake Centerline
+name       : Angara
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Atbara
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Athabasca
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Back
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Biya
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Chattahoochee
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Churchill
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Colorado
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : Columbia
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Coppermine
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Dalälven
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Dniester
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Dnipro (Dnieper)
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Don
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : El Bahr el Azraq  (Blue Nile)
+note       : 
+
+scalerank  : 2
+featurecla : Lake Centerline
+name       : Ertis
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : Firat
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Gan
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Grande
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Han
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : Huang
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : Indus
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Jordan
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Kemijoki
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Klamath
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Krishna
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : La Grande Rivière
+note       : 
+
+scalerank  : 2
+featurecla : Lake Centerline
+name       : Mackenzie
+note       : 
+
+scalerank  : 1
+featurecla : Lake Centerline
+name       : Madison
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Mahäna Nadï
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Mississippi
+note       : 
+
+scalerank  : 1
+featurecla : Lake Centerline
+name       : Missouri
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Mouhoun  (Black Volta)
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Murray
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Nakanbé (White Volta)
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Naryn
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Nelson
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Neva
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : Niger
+note       : 
+
+scalerank  : 1
+featurecla : Lake Centerline
+name       : Nile
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Ob
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Orange
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Ord
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Ottawa
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Panama Canal
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Paranaíba
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Paraná
+note       : 
+
+scalerank  : 2
+featurecla : Lake Centerline
+name       : Peace
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Pit
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : R. des Outaouais
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Rainy
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Rhein
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Rhône
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Rio Grande
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Rupert
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Río Grande de Santiago
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Sacramento
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : San Joaquin
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : San Juan
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Saskatchewan
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Sassandra
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Savannah
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Semliki
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : Shire
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Shishhid Gol
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Snake
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : South Saskatchewan
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Suez Canal
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Sukhona
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Sutlej
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Svir’
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Syr  Darya
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : São  Francisco
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Tajo
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Tennessee
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : Teslin
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Thelon
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Tocantins
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Tugaloo
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Ural
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Vaal
+note       : 
+
+scalerank  : 4
+featurecla : Lake Centerline
+name       : Verkhniy Yenisey
+note       : 
+
+scalerank  : 1
+featurecla : Lake Centerline
+name       : Victoria Nile
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Vilyuy
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Vistula
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : Volga
+note       : 
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : Volta
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Vorma
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Vuoksi
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Waikato
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Winnipeg
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : Yuan
+note       : 
+
+scalerank  : 3
+featurecla : Lake Centerline
+name       : Zambezi
+note       : 
+
+scalerank  : 6
+featurecla : Lake Centerline
+name       : 
+note       : _untitled_72
+
+scalerank  : 5
+featurecla : Lake Centerline
+name       : 
+note       : _untitled_78
+
+scalerank  : 3
+featurecla : River
+name       : Abay
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Abay (Blue Nile)
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Al Furat
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Alabama
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Albany
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Albert Nile
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Aldan
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Allegheny
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Amazonas
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Amu  Darya
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Amur
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Anadyr’
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Angara
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Araguaia
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Argun’ (Ergun)
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Arkansas
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Atbara
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Athabasca
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Ayeyarwady
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Back
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Bafing
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Bahr el  Zeraf
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Bahr el Jebel  (Mountain Nile)
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Bahr el Jebel  (White Nile)
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Bamingui
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Barito
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Barwon
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Benue
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Biya
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Borcea
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Braco Menor
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Brahmaputra
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Branco
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Bratul Chillia
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Bratul Sfintu Gheorghe
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Bratul Sulina
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Brazos
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Busira
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Bykovskaya Protoka
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Bénoué
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Bío-Bío
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Caquetá
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Chang Jiang (Yangtze)
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Chari
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Chattahoochee
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Chattooga
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Chenab
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Chixoy
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Chubut
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Chulyshman
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Churchill
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Coco
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Colorado
+note       : 
+
+scalerank  : 0
+featurecla : River
+name       : Columbia
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Congo
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Copper
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Coppermine
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Cubango
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Culuene
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Dadu
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Daly
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Dalälven
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Damietta Branch
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Danube
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Darling
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Daugava (Zapadnaya Dvina)
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Desaguadero
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Dicle
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Digul
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Dihang
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Dnepre
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Dniester
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Dnipro (Dnieper)
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Don
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Donau (Danube)
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Double Mountain Fork Brazos
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Drava
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Duero
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Ebro
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : El Bahr el Abyad  (White Nile)
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : El Bahr el Azraq  (Blue Nile)
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Elbe
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Ertis
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Ertix (Irtysh)
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Euphrates
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Ferenc Csatorna
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Finlay
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Firat
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Fitzroy
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Fraser
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Gan
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Ganges
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Garonne
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Genal?
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Gharraf Canal
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Gila
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Glomma (Glåma)
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Godävari
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Grande
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Great Pee Dee
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Guaporé
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Göta älv
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Hailar
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Han
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Heilong Jiang (Amur)
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Helmand
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Holston
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Hong (Red)
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Hongshui
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Huang
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Huang (Yellow)
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Hudson
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Ideriyn
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Indaiá
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Indigirka
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Indragi
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Indus
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Irrawaddy Delta
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Irtysh
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Ishikari
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Ismailiya Canal
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Japurá
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Jequitinhonha
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Jinsha (Yangtze)
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Jordan
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Jubba
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Juruena
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Kadéï
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Kafue
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Kagera
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Kamchatka
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Kapuas
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Kasai
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Katherine
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Kayan
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Kem
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Kemijoki
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Khatanga
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Kheta
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Kibali
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Klamath
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Kokemäenjoki
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Kolyma
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Konqi
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Koukourou
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Koyukuk
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Krishna
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Kuskokwim
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Kwango
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Kyzyl-Khem
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : La Grande Rivière
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Lancang (Mekong)
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Lek
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Lena
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Liao
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Liard
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Limpopo
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Loire
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Lom
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Lower  Tunguska (Nizhnyaya Tunguska)
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Lualaba
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Lualaba (Congo)
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Mackenzie
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Madeira
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Madison
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Madre de Dios
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Magdalena
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Mahäna Nadï
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Malyy Yenisey
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Mamberamo
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Mamoré
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Mananantanana
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Mangoky
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Maquan (Damqogkanbab)
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Marañón
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Mekong
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Mendoza
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Meta
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Min
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Mississippi
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Missouri
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Mitchell
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Mouhoun  (Black Volta)
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Murray
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : N. Fork Kuskokwim
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Nakanbé (White Volta)
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Nanpan
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Narmada
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Naryn
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Nederrijn
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Negro
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Nelson
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Neuquén
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Neva
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Niagara
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Niger
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Nile
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Nmai
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : North Saskatchewan
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Nu
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Nu (Salween)
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Ob
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Ob'
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Ob’
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Oder
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Ohio
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Okavango
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Olenekskaya Protoka
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Olenëk
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Omo
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Orange
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Ord
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Orinoco
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Ottawa
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Ouham
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Pamir
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Panama Canal
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Panj
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Paraiba
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Paranaíba
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Paraná
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Peace
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Pechora
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Pend Oreille
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Pilcomayo
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Pit
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Po
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Porcupine
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Potomac
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Purari
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Purús
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Pánuco
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Quan
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : R. des Outaouais
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Rainy
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Rhein
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Rhin (Rhein)
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Rhine
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Rhône
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Rio Grande
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Rosetta Branch
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Ruki
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Rupert
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Ruvuma
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Río Grande de Santiago
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : S. Branch Potomac
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Sacramento
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Saint John
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Salado
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Salween
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : San Joaquin
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : San Juan
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Sanaga
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Sangha
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Santa Cruz
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Saskatchewan
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Sassandra
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Savannah
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Seine
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Selenge (Selenga)
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Semliki
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Setit
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Shatt al Arab
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Shiquan
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Shire
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Shishhid Gol
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Skeena
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Slave
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Snake
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Songhua (Sungari)
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Soroksari Duna
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : South Saskatchewan
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Sprague
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : St. Clair
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : St. Lawrence
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Stikine
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Suez Canal
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Sukhona
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Susitna
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Sutlej
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Svernaya Dvina
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Svir’
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Syr  Darya
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : São  Francisco
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Sénégal
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Tajo
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Tanana
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Tapajós
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Tarim
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Taritatu
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Taz
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Tejo (Tagus)
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Tennessee
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Teslin
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Thames
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Thelon
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Tigris
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Tisa
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Tisza
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Tobol
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Tocantins
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Tom’
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Tongtian
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Trofimovskaya Protoka
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Tshuapa
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Tugaloo
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Tumatskaya Protoka
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Tuotuo
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Ubangi
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Ucayali
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Uele
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Ural
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Uruguay
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Usumacinta
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Vaal
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Verde
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Verkhniy Yenisey
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Victoria Nile
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Vilyuy
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Vistula
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Volga
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Volta
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Vorma
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Vuoksi
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Vychegda
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Waal
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Wabash
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Waikato
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Waitaki
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Weir
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Willamette
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Winnipeg
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Xar Moron
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Xi
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Xiliao
+note       : 
+
+scalerank  : 5
+featurecla : River
+name       : Xingu
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Xun
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Yadkin
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Yamuna
+note       : 
+
+scalerank  : 1
+featurecla : River
+name       : Yangtze
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Yarkant
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Yarlung (Brahmaputra)
+note       : 
+
+scalerank  : 4
+featurecla : River
+name       : Yenisey
+note       : 
+
+scalerank  : 6
+featurecla : River
+name       : Yuan
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Yukon
+note       : 
+
+scalerank  : 2
+featurecla : River
+name       : Za
+note       : 
+
+scalerank  : 3
+featurecla : River
+name       : Zambezi
+note       : 
+

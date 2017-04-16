@@ -77,31 +77,6 @@ public class SceneGestures {
      * Mouse wheel handler: zoom to pivot point
      */
     private EventHandler<ScrollEvent> onScrollEventHandler = new EventHandler<ScrollEvent>() {
-
-        /*
-        @Override
-        public void handle(ScrollEvent event) {
-            double scale = canvas.getScale(); // currently we only use Y, same value is used for X
-            double oldScale = scale;
-
-            scale *= Math.sqrt(Math.pow(1.01, event.getDeltaY()));
-
-//            if (scale <= MIN_SCALE) {
-//                scale = MIN_SCALE;
-//            } else if (scale >= MAX_SCALE) {
-//                scale = MAX_SCALE;
-//            }
-
-            double f = (scale / oldScale) - 1.0;
-
-            double dx = (event.getSceneX() - (canvas.getBoundsInParent().getWidth()/2.0 + canvas.getBoundsInParent().getMinX()));
-            double dy = (event.getSceneY() - (canvas.getBoundsInParent().getHeight()/2.0 + canvas.getBoundsInParent().getMinY()));
-//
-            canvas.setPivot(f*dx, f*dy);
-//            canvas.setScale(scale);
-            canvas.getTransforms().add(new Scale(scale, scale));
-        }
-        */
         @Override
         public void handle(ScrollEvent event) {
 
@@ -112,28 +87,6 @@ public class SceneGestures {
             } else {
                 scale = 1.0 * scale;
             }
-
-//            double scale = canvas.getScale(); // currently we only use Y, same value is used for X
-//            double oldScale = scale;
-//
-//            if (event.getDeltaY() < 0)
-//                scale /= delta;
-//            else
-//                scale *= delta;
-//
-//            scale = clamp( scale, MIN_SCALE, MAX_SCALE);
-//
-//            double f = (scale / oldScale)-1.0;
-//
-//            double dx = (event.getSceneX() - (canvas.getBoundsInParent().getWidth()/2.0 + canvas.getBoundsInParent().getMinX()));
-//            double dy = (event.getSceneY() - (canvas.getBoundsInParent().getHeight()/2.0 + canvas.getBoundsInParent().getMinY()));
-//
-//            canvas.setScale(scale);
-//
-//            // note: pivot value must be untransformed, i. e. without scaling
-//            canvas.setPivot(f*dx, f*dy);
-//
-//            event.consume();
 
             Bounds canvasBounds = canvas.getBoundsInLocal();
             double centerX = canvasBounds.getWidth() / 2.0 + canvasBounds.getMinX();

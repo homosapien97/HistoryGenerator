@@ -1,9 +1,8 @@
 package world;
 
-import Utilities.Dependable;
-import Utilities.Dependent;
-import Utilities.Transformations;
-import Utilities.Update;
+import utilities.Dependable;
+import utilities.Dependent;
+import utilities.Update;
 import geometry.BlobSettings;
 import geometry.PolygonUtils;
 import javafx.scene.shape.Polygon;
@@ -15,9 +14,53 @@ import java.util.*;
  * Created by homosapien97 on 4/7/17.
  */
 public class World extends HashMap<Class, HashSet<Shape>> implements Dependable, Dependent {
+    private static BlobSettings defaultContinentBlobSettings = new BlobSettings(8, 1024.0, 2.7, 10);
     int modificationCount = 0;
     LinkedList<Dependent> dependents = new LinkedList<>();
     HashSet<Dependable> dependencies = new HashSet<>();
+    NameList cityNames;
+    NameList riverNames;
+
+    public void step(int num) {
+        for(int i = 0; i < num; i++) {
+            System.out.println("Stepping world");
+            System.out.println("Doing city culture");
+            for (Shape s : this.get(City.class)) {
+                City city = (City) s;
+                for (Shape z : city.inSphere()) {
+                    if (z instanceof City) {
+                        City c = (City) z;
+                        city.influence(c);
+                    } else if (z instanceof Watershed) {
+                        Watershed w = (Watershed) z;
+                        city.influence(w);
+                    }
+                }
+                city.driftCulture();
+            }
+            System.out.println("Doing watershed culture");
+            for (Shape s : this.get(Watershed.class)) {
+                Watershed watershed = (Watershed) s;
+                for (Shape z : watershed.inSphere()) {
+                    if (z instanceof City) {
+                        City c = (City) z;
+                        watershed.influence(c);
+                    } else if (z instanceof Watershed) {
+                        Watershed w = (Watershed) z;
+                        watershed.influence(w);
+                    }
+                }
+            }
+            for (Shape s : this.get(City.class)) {
+                City city = (City) s;
+                city.finalizeInfluence();
+            }
+            for (Shape s : this.get(Watershed.class)) {
+                Watershed watershed = (Watershed) s;
+                watershed.finalizeInfluence();
+            }
+        }
+    }
 
     @Override
     public Set<Dependable> dependencies() {
@@ -41,9 +84,8 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable,
         }
     }
 
-    private static BlobSettings defaultContinentBlobSettings = new BlobSettings(8, 1024.0, 2.7, 11);
 
-    public World(int numContinents, int numMountainsPerContinent, int numCitiesPerWatershed, Random rand) {
+    public World(NameList cityNames, NameList riverNames, int numContinents, int numMountainsPerContinent, int numCitiesPerWatershed, Random rand) {
         super();
         for(int i = 0; i < numContinents; i++) {
             //TODO make this actually work nicely with more than 1 continent
@@ -56,13 +98,15 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable,
             continentCopy.add(PolygonUtils.copy(continent));
             HashSet<Polygon> safeCopy;
             do {
-                Watershed w = new Watershed(continent, continentCopy, continent.scale, continent.deformations, rand);
+                Watershed w = new Watershed(riverNames.remove(rand.nextInt(riverNames.size() - 1) + 1), continent,
+                        continentCopy, continent.scale, continent.deformations, rand);
+                if(riverNames.size() < 2) {
+                    riverNames = new NameList(NameType.RIVER);
+                }
                 try {
                     safeCopy = PolygonUtils.subtract(continentCopy, w);
-//                    System.out.println("safecopy size " + safeCopy.size());
                     continentCopy = safeCopy;
                 } catch (Exception e) {
-//                    System.out.println("watershed subtraction fail");
                 }
                 add(w);
                 dependencies.add(w);
@@ -78,9 +122,13 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable,
                 System.out.println("Adding " + Math.floor(watershed.area / 27000.0) + " cities");
                 for(int j = 0; j < Math.floor(watershed.area / 27000.0); j++) {
 //                    add(new City(watershed, rand));
-                    watershed.addCity();
+                    watershed.addCity(cityNames.remove(rand.nextInt(cityNames.size() - 1) + 1));
+                    if(cityNames.size() < 2) {
+                        cityNames = new NameList(NameType.CITY);
+                    }
                 }
                 this.get(City.class).addAll(watershed.cities);
+                watershed.setAverageCulture();
             }
 
             //Add mountain ranges
@@ -90,6 +138,7 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable,
             for(int j = 0; j < numMountainsPerContinent; j++) {
                 add(new MountainRange(continent, continentCopy, continent.scale, continent.deformations, rand));
             }
+            System.out.println("Done with mountains");
 
             add(continent);
         }
@@ -143,7 +192,7 @@ public class World extends HashMap<Class, HashSet<Shape>> implements Dependable,
                         if (safeUnion != null && safeUnion.getPoints().size() != 0) {
 //                            System.out.println("Union successful");
                             toRemove = extant;
-                            Watershed newWatershed = new Watershed(extant.continent, safeUnion, extant.endPoint, extant.rand);
+                            Watershed newWatershed = new Watershed(extant.name, extant.continent, safeUnion, extant.endPoint, extant.rand);
                             watersheds.add(newWatershed);
                             break;
                         }

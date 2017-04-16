@@ -1,12 +1,11 @@
 package ui;
 
-import Utilities.Dependable;
-import Utilities.Dependent;
-import Utilities.Update;
+import utilities.Dependable;
+import utilities.Dependent;
+import utilities.Update;
 import javafx.scene.shape.Shape;
 import world.World;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 

@@ -1,6 +1,5 @@
-package Utilities;
+package utilities;
 
-import java.util.List;
 import java.util.Set;
 
 /**

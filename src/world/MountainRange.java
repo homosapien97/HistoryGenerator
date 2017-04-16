@@ -25,8 +25,8 @@ public class MountainRange extends Polygon {
         boolean done = false;
         do {
             ArrayList<Polygon> polygons = new ArrayList<>();
-            double minScale = Math.abs(Math.log(continentScale)) * Math.sqrt(continentScale) / 7;
-            Squiggly squiggly = new Squiggly(continent, continents, minScale / 2, Math.PI / 3, false, rand);
+            double minScale = Math.abs(Math.log(continentScale)) * Math.sqrt(continentScale) / 6;
+            Squiggly squiggly = new Squiggly(continent, continents, minScale / 2, Math.PI / 3.5, false, rand);
             squiggly.removeTail(1.0/3.0);
             this.squiggly = squiggly;
 

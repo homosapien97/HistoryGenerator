@@ -3,16 +3,16 @@ package run;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import ui.RenderModifier;
-import ui.SceneGestures;
-import ui.WorldCanvas;
+import ui.*;
 import world.*;
 
 import java.util.ArrayList;
@@ -23,16 +23,12 @@ import java.util.Random;
  */
 public class Main extends Application {
     public void start(Stage stage) {
-//        Random seeder = new Random();
-//        long seed = seeder.nextLong();
-        long seed = -7686109781550864508l;
-        //bad seeds: 5760597914071523077l
-        //good seeds:   5107874807822077303l
-        //              3644379409043933151l
-        //              -7686109781550864508l
+        Random seeder = new Random();
+        long seed = seeder.nextLong();
+//        long seed = -7686109781550864508l;
         Random rand = new Random(seed);
         System.out.println("Seed: " + seed);
-        World world = new World(1, 8, 4, rand);
+        World world = new World(new NameList(NameType.CITY), new NameList(NameType.RIVER), 1, 8, 4, rand);
 
         ArrayList<RenderModifier> renderOrder = new ArrayList<>();
         renderOrder.add(new RenderModifier(Continent.class) {
@@ -62,13 +58,15 @@ public class Main extends Application {
         renderOrder.add(new RenderModifier(City.class) {
             @Override
             public void changeRenderSettings(Shape s) {
-                s.setFill(Color.WHITE);
+                s.setFill(Color.ORANGE);
             }
         });
 
         WorldCanvas canvas = new WorldCanvas(world, renderOrder);
+        HUD hud = new HUD(world);
         Group root = new Group();
         root.getChildren().add(canvas);
+        root.getChildren().add(hud);
 //        for(Shape s : world.mountains()) {
 //            canvas.getChildren().addAll(((Mountain) s).failures);
 //        }
@@ -87,6 +85,9 @@ public class Main extends Application {
         scene.addEventFilter(MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
         scene.addEventFilter(MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
         scene.addEventFilter(ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+
+        NodeGestures nodeGestures = new NodeGestures(canvas, hud);
+        scene.addEventFilter(MouseEvent.MOUSE_CLICKED, nodeGestures.getOnMouseClickedEventHandler());
 
         stage.setScene(scene);
         stage.show();
